@@ -29,4 +29,6 @@ app.get("/privatedata",function(_,response){
   response.render("privatedata.hbs")
 }); 
 
+//ЙОу собаки я наруто заебали
+
 app.listen(3000);
