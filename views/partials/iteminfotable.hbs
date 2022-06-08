@@ -1,0 +1,23 @@
+<div class="grid">
+    <!-- и создаём 16 вложенных элементов -->
+    <div class="image"><img class ="image-fit" src="https://ae01.alicdn.com/kf/Ha987a4204a1545d6a5ea8db98e163efc3.jpg"> </div>
+    <div>{{item.itemname}}</div>
+    <table>
+        <caption>О товаре:</caption>
+        <tr><td>Производитель/автор:</td><td>{{item.itemauthor}}</td></tr> <!--ряд с ячейками тела таблицы-->
+        <tr><td>Возрастное ограничение:</td><td>{{item.itemagelimit}}</td></tr>
+        <tr><td>Количество в наличии:</td><td>{{item.itemcount}}</td></tr>
+        <tr><td>Качество:</td><td>{{item.itemconditionname}}</td></tr>
+    </table>
+    <div>
+        <p><center>Стоимость:</center></p>
+        <span><center><b>{{item.itemprice}}</b></center></span>
+        <form class="imdiz-product__buy-form">
+            <input type="hidden">
+            <p><button type="submit" class="imdiz-product__submit">{{btnname}}</button></p>
+        </form>
+    </div>
+</div>
+<div class="itemdescription">
+    <p class="outline">{{item.itemdescription}}</p>
+</div>

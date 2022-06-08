@@ -70,3 +70,16 @@
     font-family: 'Ubuntu', sans-serif;
 }
 
+table {
+    padding-top: 55px;
+    /*border: 1px solid grey;*/
+}
+ 
+table {
+    width: 100%;
+}
+ /* задаст фиксированную ширину для таблицы */
+ table {
+    width: 380px;
+}
+
