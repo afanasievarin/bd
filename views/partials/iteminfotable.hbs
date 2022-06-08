@@ -1,7 +1,9 @@
 <div class="grid">
     <!-- и создаём 16 вложенных элементов -->
-    <div class="image"><img class ="image-fit" src="https://ae01.alicdn.com/kf/Ha987a4204a1545d6a5ea8db98e163efc3.jpg"> </div>
-    <div>{{item.itemname}}</div>
+    <div class="image"><img class ="image-fit" src="https://i.gzn.jp/img/2020/02/09/beastars-wf2020w/IMG_0624.jpg"> </div>
+    <div class="itemnameset">
+        <div class="itemset">{{item.itemname}}</div>
+    </div>
     <table>
         <caption>О товаре:</caption>
         <tr><td>Производитель/автор:</td><td>{{item.itemauthor}}</td></tr> <!--ряд с ячейками тела таблицы-->
@@ -9,6 +11,13 @@
         <tr><td>Количество в наличии:</td><td>{{item.itemcount}}</td></tr>
         <tr><td>Качество:</td><td>{{item.itemconditionname}}</td></tr>
     </table>
+    <div></div>
+    <table>
+        <tr><td colspan="2" style="text-align:center">Описание:</td></tr>
+        <tr><td colspan="2" style="text-align:center">{{item.itemdescription}}</td></tr>
+    </table>
+    <div></div>
+    <div class="invisibleblock"></div>
     <div>
         <p><center>Стоимость:</center></p>
         <span><center><b>{{item.itemprice}}</b></center></span>
@@ -18,6 +27,6 @@
         </form>
     </div>
 </div>
-<div class="itemdescription">
+<!--<div class="itemdescription">
     <p class="outline">{{item.itemdescription}}</p>
-</div>
+</div>-->
