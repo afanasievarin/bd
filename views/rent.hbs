@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Аренда</title>
+        <link rel="stylesheet" href="/../css/style.css">
+        <link rel="stylesheet" href="/../css/stylecatalog.css">
+        <!--<link rel="stylesheet" href="/../css/rentitem.css">-->
+    </head>
+    <body>	
+        <header class="headernotmain">
+            {{> navigationbar}}
+        </header>
+        <div class="container products__container">
+            <ul class="imdiz-products_row">
+                {{#each items}}
+                    {{> rentableitem item=this}} 
+                {{/each}}
+            </ul>
+        </div>
+    </body>
+</html>

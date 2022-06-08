@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" href="/../css/lk.css">
+    <link rel="stylesheet" href="/../css/style.css">
+</head>
+	<body>	
+		<header class="headernotmain">		
+			{{> navigationbar}}
+		</header>
+		<div class="grid">
+			<div>
+				<button class="lkbutton" type="button" name="button">
+					<a class="link" href="#">
+						<img class="lklink" src="../../image/svg/delivery.svg" alt="" />
+					</a>
+					<p>Заказы</p>
+				</button>
+			</div>
+			<div>
+				<button class="lkbutton" type="button" name="button">
+					<a class="link" href="/privatedata/{{user.userID}}">
+						<img class="lklink" src="../../image/svg/user.svg" alt="" />
+					</a>
+					<p>Личные данные</p>
+				</button>
+			</div>
+			<div>
+				<button class="lkbutton" type="button" name="button">
+					<a class="link" href="/shopcart">
+						<img class="lklink" src="../../image/svg/cart.svg" alt="" />
+					</a>
+					<p>Корзина</p>
+				</button>
+			</div>
+			<div>
+				<button class="lkbutton" type="button" name="button">
+					<a class="link" href="#">
+						<img class="lklink" src="../../image/svg/rent.svg" alt="" />
+					</a>
+					<p>Аренда</p>
+				</button>
+			</div>
+		</div>
+	</body>
+</html>

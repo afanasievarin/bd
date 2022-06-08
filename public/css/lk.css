@@ -1,0 +1,37 @@
+.grid {
+  padding: 120px;
+  padding-left: 600px;
+  /*рисуем зелёные рамки*/
+  /*border: 5px solid #d1e231;*/
+  /*подключаем сетку*/
+  display: grid;
+  /*формируем по 4 одинаковых строки и столбца*/
+  grid-template-columns: repeat(2, 200px);
+  /*grid-template-rows: (2, 200px);*/
+  height: 100px;
+} 
+
+  /*внешний вид ячеек*/
+.grid > * {
+  /*фоновый цвет*/
+  background-color: #ffffff;
+  /*скругление углов*/
+  border-radius: 5px;
+  /*расстояние от одной границы ячейки до другой*/
+  margin: 5px;
+}
+
+.lklink {
+  padding-top: 41px;
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+  max-width:100px;
+  max-height:100px;
+}
+
+.lkbutton {
+  width: 100%;
+}
+
+

@@ -1,0 +1,24 @@
+<li class="imdiz-product">
+    <div class="imdiz-product__inner">                
+        <!--!<div class="imdiz-product__image-wrap">-->
+            <a href="/" class="imdiz-product__img-link">
+                <img src="https://kartinkin.net/uploads/posts/2021-07/1625575245_14-kartinkin-com-p-krasivie-anime-arti-anime-krasivo-16.jpg" alt="Изображение продукта">
+            </a>                    
+        <!--</div>-->
+        <div class="imdiz-product__info">
+            <a href="/itempage/{{item.itemID}}" class="imdiz-product__name">{{item.itemname}}</a>	
+            <p class="imdiz-product__av">
+						<i class="fa fa-check" aria-hidden="true"></i>
+						<span>{{item.itemstatusname}}</span>
+					</p>       
+            <p class="imdiz-product__price">
+                <span class="imdiz-product__cost">{{item.itemprice}}</span>
+            </p>
+
+        </div>
+        <form class="imdiz-product__buy-form">
+            <input type="hidden">
+            <button type="submit" class="imdiz-product__submit">В корзину</button>
+        </form>
+    </div>
+</li>

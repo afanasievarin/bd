@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>{{item.itemname}}</title>
+        <link rel="stylesheet" href="/../css/style.css">
+        <link rel="stylesheet" href="/../css/itempage.css">
+    </head>
+    <body>	
+        <header class="headernotmain">
+            {{> navigationbar}}
+        </header>
+        <div class="grid">
+            <!-- и создаём 16 вложенных элементов -->
+            <div class="image"><img class ="image-fit" src="https://ae01.alicdn.com/kf/Ha987a4204a1545d6a5ea8db98e163efc3.jpg"> </div>
+            <div>{{item.itemname}}</div>
+            <div><p><b>О товаре:</b></p>
+                <span>Производитель/Автор: {{item.itemauthor}}</span>
+                <span>Возрастное ограничение: {{item.itemagelimit}}</span>
+                <span>Количество в наличии: {{item.itemcount}}</span>
+                <span>Качество: {{item.itemcondition}}</span>
+            </div>
+            <div>
+                <p><center>Стоимость:</center></p>
+                <span><center><b>{{item.itemprice}}</b></center></span>
+                <form class="imdiz-product__buy-form">
+                    <input type="hidden">
+                    <p><button type="submit" class="imdiz-product__submit">В аренду</button></p>
+                </form>
+            </div>
+        </div>
+        <div class="itemdescription">
+            <p class="outline">{{item.itemdescription}}</p>
+        </div>
+    </body>
+</html>

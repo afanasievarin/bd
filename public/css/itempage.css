@@ -1,0 +1,72 @@
+.body{
+    /*настраиваем шрифт*/
+    font-family: 'Ubuntu', sans-serif;
+}
+  /*общие настройки сетки*/
+.grid {
+    padding-top:50px;
+    padding-left: 245px;
+    /*рисуем зелёные рамки
+    border: 5px solid #ffffff;*/
+    /*подключаем сетку*/
+    display: grid;
+    /*формируем по 4 одинаковых строки и столбца*/
+    grid-template-columns: repeat(4, 250px);
+    grid-template-rows: repeat(3, 150px);
+} 
+
+  /*внешний вид ячеек*/
+.grid > * {
+    /*фоновый цвет*/
+    background-color: #ffffff;
+    /*скругление углов*/
+    border-radius: 0px;
+    /*расстояние от одной границы ячейки до другой*/
+    margin: 1px;
+}
+
+.image {
+    grid-column: span 3;
+    grid-row: span 3;
+    /*object-fit: cover*/
+    /*align-items: center;*/
+}
+
+.image-fit{
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+    /*width: 400px;
+    height: 400px;*/
+    max-width:100%;
+    max-height:100%;
+}
+
+.imdiz-product__submit{
+    background-color: #0027d4;
+    border: 1px solid #0027d4;
+    width: 168px;
+    height: 41px;
+    color: #fff;
+    font-size: 18px;
+    padding: 0;
+    display: block;
+    margin: 0 auto;
+    cursor: pointer;
+    transition: all .3s;
+}
+
+.imdiz-product__submit:hover{
+    background-color: #fff;
+    color: #0027d4;
+}
+
+.itemdescription {
+    padding-left: 245px;
+}
+.outline {
+    border: 1px solid #ffffff;
+    width: 745px;
+    font-family: 'Ubuntu', sans-serif;
+}
+

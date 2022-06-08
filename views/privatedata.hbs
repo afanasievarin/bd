@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" href="/../css/privatedata.css">
+    <link rel="stylesheet" href="/../css/style.css">
+</head>
+	<body>	
+		<header class="headernotmain">		
+			{{> navigationbar}}
+		</header>
+		<div class="data-container">
+			<div class="grid">
+                <div class="maininfo">
+					<table>
+						<tr><th>Личные данные</th><th></th></tr> <!--ряд с ячейками заголовков-->
+						<tr><td>Ваша фамилия:</td><td>{{user.usersurname}}</td></tr> <!--ряд с ячейками тела таблицы-->
+						<tr><td>Ваша имя:</td><td>{{user.username}}</td></tr>
+						<tr><td>Ваше отчество:</td><td>{{user.usermidname}}</td></tr>
+						<tr><td>Ваша почта:</td><td>{{user.useremail}}</td></tr>
+						<tr><td>Ваш телефон:</td><td>{{user.userphone}}</td></tr>
+						<tr><td></td><td></td></tr>
+						<tr><th>Паспортные данные:</th><td></td></tr>
+						<tr><td>Паспорт:</td><td>{{user.userpassport}}</td></tr>
+						<tr><td>Кем выдан:</td><td>{{user.userpassportby}}</td></tr>
+						<tr><td>Дата выдачи:</td><td>{{user.userpassportdate}}</td></tr>
+					</table>
+                </div>
+            </div>                
+		</div>
+	</body>
+</html>

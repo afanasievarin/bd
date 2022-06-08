@@ -1,0 +1,57 @@
+.data-container {
+    opacity: 0.7;
+    width: 500px;
+    height:550px;
+    float: left;
+    background: #0027d4;
+    border: solid 1px grey;
+    position: relative;
+    /*padding-left: 300px;*/
+    left: 500px;
+    top: 55px;
+    border-radius: 10px;
+}
+
+.grid {
+    padding-top:70px;
+    padding-left: 55px;
+    opacity: 1;
+    /*рисуем зелёные рамки
+    border: 5px solid #ffffff;*/
+    /*подключаем сетку*/
+    display: grid;
+    /*формируем по 4 одинаковых строки и столбца*/
+    grid-template-columns: repeat(2, 400px);
+    grid-template-rows: repeat(2, 400px);
+} 
+
+  /*внешний вид ячеек*/
+.grid > * {    
+    /*фоновый цвет*/
+    background-color: #ffffff;
+    /*скругление углов*/
+    border-radius: 10px;
+    /*расстояние от одной границы ячейки до другой*/
+    margin: 10px;
+}
+/* внешние границы таблицы серого цвета толщиной 1px */
+table {
+    padding-top: 55px;
+    /*border: 1px solid grey;*/
+ }
+ /* границы ячеек первого ряда таблицы */
+ /*th {
+    border: 1px solid grey;
+ }*/
+ /* границы ячеек тела таблицы */
+ /*td {
+    border: 1px solid grey;
+ }*/
+ /* сделает ширину таблицы равной ширине блока контейнера, в котором она находится */
+table {
+    width: 100%;
+ }
+ /* задаст фиксированную ширину для таблицы */
+ table {
+    width: 380px;
+ }
