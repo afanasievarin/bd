@@ -28,7 +28,12 @@ app.get("/lk",function(_,response){
 app.get("/privatedata",function(_,response){
   response.render("privatedata.hbs")
 }); 
-
+app.get("/signin",function(_,response){
+  response.render("signin.hbs")
+});
+app.get("/signup",function(_,response){
+  response.render("signup.hbs")
+});
 //ЙОу собаки я наруто узумаки
 
 app.listen(3000);
