@@ -34,6 +34,9 @@ app.get("/signin",function(_,response){
 app.get("/signup",function(_,response){
   response.render("signup.hbs")
 });
+app.get("/additem",function(_,response){
+  response.render("additem.hbs")
+});
 //ЙОу собаки я наруто узумаки
 
 app.listen(3000);
