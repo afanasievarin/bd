@@ -2,9 +2,8 @@ const express = require("express");
 const router = express.Router();
 const {getUserByID} = require("../classes/user.js");
 
-router.get("/privatedata/:id", async function(request,response){
-    var id = request.params.id;
-    var user = await getUserByID(id);
+router.get("/privatedata", async function(request,response){
+    var user = await getUserByID(request.user.id);
     response.render("homepage/privatedata.hbs", {user: user[0]});
     console.log(user);
   });

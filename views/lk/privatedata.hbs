@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" href="/../css/privatedata.css">
+    <link rel="stylesheet" href="/../css/style.css">
+</head>
+	<body>	
+		<header class="headernotmain">		
+			{{> navigationbar}}
+		</header>
+		<div class="data-container">
+		<div class="grid">
+		<div class="maininfo">
+			<input hidden id="id" value="{{user.userID}}">
+			<table>
+				<caption><b>Личные данные</b></caption>
+				<tr>
+					<td>Ваша фамилия:</td>
+					<td><input name="input" id="surname" value="{{user.usersurname}}"></td>
+				</tr> 
+				<tr>
+					<td>Ваша имя:</td>
+					<td><input name="input" id="name" value="{{user.username}}"></td>
+				</tr>
+				<tr>
+					<td>Ваше отчество:</td>
+					<td><input name="input" id="midname" value="{{user.usermidname}}"></td>
+				</tr>
+				<tr>
+					<td>Ваша почта:</td>
+					<td><input name="input" id="email" value="{{user.useremail}}"></td>
+				</tr>
+				<tr>
+					<td>Ваш телефон:</td>
+					<td><input name="input" id="phone" value="{{user.userphone}}"></td>
+				</tr>
+				<tr>
+					<td>Паспорт:</td>
+					<td><input name="input" id="passport" value="{{user.userpassport}}"></td>
+				</tr>
+				<tr>
+					<td>Кем выдан:</td>
+					<td><input name="input" id="passportby" value="{{user.userpassportby}}"></td>
+				</tr>
+				<tr>
+					<td>Дата выдачи:</td>
+					<td><input name="input" id="passportdate" value="{{user.userpassportdate}}"></td>
+				</tr>
+			</table>
+		</div>
+		<button id="update-button">Сохранить</button>
+		</div>                
+		</div>
+	</body>
+</html>
+<script>
+	document.getElementById('update-button').onclick = async function(){
+        var data = {
+            userID: document.getElementById('id').value,
+            surname:  document.getElementById('surname').value,
+            name:  document.getElementById('name').value,
+            midname:  document.getElementById('midname').value,
+            email: document.getElementById('email').value,
+            phone: document.getElementById('phone').value,
+            passport: document.getElementById('passport').value,
+            passportby: document.getElementById('passportby').value,
+            passportdate: document.getElementById('passportdate').value
+        };
+		if(!data.surname){alert("Введите фамилию"); return;}
+        if(!data.name){alert("Введите имя"); return;}
+        if(data.surname.length > 30){alert("Фамилия не должна быть длиннее 30 симоволов"); return;}
+        if(data.name.length > 30){alert("Имя не должно быть длиннее 30 симоволов"); return;}
+        if(data.midname.length > 30){alert("Отчество не должно быть длиннее 30 симоволов"); return;}
+        if(!/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(data.email) || data.email.length > 30){alert("Неверный email"); return;}
+        if(!/^\d+$/.test(data.phone) || data.phone.length > 11){alert("Некорректный номер телефона");return;}
+        if(!/^\d+$/.test(data.passport) || data.passport.length !=10){alert("Некорректные номер и серия паспорта");return;}
+        if(data.passportby.lenght > 50){alert("Место выдачи должно быть не длиннее 50 символов");return;}
+        var date = data.studentpassportdate.split(/[- :]/);
+        if(!data.passportdate){alert("Некорректный формат даты");return;}
+        var curdate = new Date();
+        if(parseInt(date[0]) > curdate.getFullYear()-14 || parseInt(date[0]) < curdate.getFullYear()-80){alert("Некорректный год");return;}
+
+		const response = await fetch('/users/user/update', {
+            method: 'post',
+            body: JSON.stringify(data),
+            headers: {'Content-Type': 'application/json'}
+        });
+		if(response.status == 200) alert("Запись успешно обновлена");
+		else alert("Ошибка при обновлении записи");
+	}
+</script>
