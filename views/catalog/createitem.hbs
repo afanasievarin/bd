@@ -11,16 +11,16 @@
         <header class="headernotmain">
         {{> navigationbar}}
         </header>
-		<div class="box">
+		<div class="box" style="margin-top:100px;">
             <input hidden id="id" value="{{item.itemID}}">
             <input hidden id="catid" value="{{item.categoryID}}">
             <input hidden id="statid" value="{{item.itemstatusID}}">
             <input hidden id="condid" value="{{item.itemconditionID}}">
             <form>
-                <table>
+                <table style="width: 100%;">
                     <tr>
                         <th></th>
-                        <th></th>
+                        <th style="width: 75%;"></th>
                     </tr>
                     <tr>
                         <th>Название</th>
@@ -92,7 +92,7 @@
                     <button id="save-btn" type="button" class="btn">Создать</button>
             </form>	
         </div>
-        <a href="/items/parameters"><button>Редактировать параметры</button></a>
+        <a href="/items/parameters"><button class="btn">Редактировать параметры</button></a>
 	</body>
 </html>
 <script>

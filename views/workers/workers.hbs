@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <link rel="stylesheet" href="/../css/style.css">
+        <link rel="stylesheet" href="/../css/stylecatalog.css">
+    </head>
+    <body>	
+        <header class="headernotmain">
+            {{> navigationbar}}
+        </header>
+        <div class="container products__container">
+            <ul class="imdiz-products_row">
+            {{emptyworker}}
+            {{#each workers}}
+            {{> worker worker=this}} 
+            {{/each}}
+            </ul>
+        </div>
+    </body>
+</html>

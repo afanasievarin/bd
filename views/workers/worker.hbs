@@ -10,81 +10,81 @@
 			{{> navigationbar}}
 		</header>
 		<div class="data-container">
-		<div class="grid">
-		<div class="maininfo">
-			<input hidden id="id" value="{{worker.workerID}}">
-			<table>
-				<caption><b>Личные данные</b></caption>
-                {{#unless checkCreate}}
-                <tr>
-					<td>ID:</td>
-					<td><input name="input" id="id" value="{{worker.workerID}}"></td>
-                </tr>
-                {{/unless}}
-				<tr>
-					<td>Фамилия:</td>
-					<td><input name="input" id="surname" value="{{worker.workersurname}}"></td>
-				</tr> 
-				<tr>
-					<td>Имя:</td>
-					<td><input name="input" id="wname" value="{{worker.workername}}"></td>
-				</tr>
-				<tr>
-					<td>Отчество:</td>
-					<td><input name="input" id="midname" value="{{worker.workermidname}}"></td>
-				</tr>
-				<tr>
-					<td>Почта:</td>
-					<td><input name="input" id="email" value="{{worker.workeremail}}"></td>
-				</tr>
-				<tr>
-					<td>Телефон:</td>
-					<td><input name="input" id="phone" value="{{worker.workerphone}}"></td>
-				</tr>
-				<tr>
-					<td>Паспорт:</td>
-					<td><input name="input" id="passport" value="{{worker.workerpassport}}"></td>
-				</tr>
-				<tr>
-					<td>Кем выдан:</td>
-					<td><input name="input" id="passportby" value="{{worker.workerpassportby}}"></td>
-				</tr>
-				<tr>
-					<td>Дата выдачи:</td>
-					<td><input type="date" name="input" id="passportdate" value="{{worker.workerpassportdate}}"></td>
-				</tr>
-                {{#if checkCreate}}
-                <tr>
-					<td>Логин:</td>
-					<td><input name="input" id="login"></td>
-				</tr>
-                <tr>
-					<td>Пароль:</td>
-					<td><input name="input" id="password"></td>
-				</tr>
-                {{else}}
-                <tr>
-					<td>Логин:</td>
-					<td><input readonly name="input" id="login" value="{{worker.workerlogin}}"></td>
-				</tr>
-                {{/if}}
-                <tr>
-					<td>Зарплата:</td>
-					<td><input name="input" id="salary" value="{{worker.workersalary}}"></td>
-				</tr>
-                <tr>
-					<td>Опыт работы:</td>
-					<td><input name="input" id="experience" value="{{worker.workerexperience}}"></td>
-				</tr>
-			</table>
-		</div>
-            {{#if checkCreate}}
-            <button name="create" id="update-button">Создать</button>
-            {{else}}
-            <button name="update" id="update-button">Сохранить</button>
-            {{/if}}
-		</div>                
-		</div>
+			<div class="grid">
+				<div class="maininfo">
+					<input hidden id="id" value="{{worker.workerID}}">
+					<table>
+						<caption><b>Личные данные</b></caption>
+						{{#unless checkCreate}}
+						<tr>
+							<td>ID:</td>
+							<td><input name="input" id="id" value="{{worker.workerID}}"></td>
+						</tr>
+						{{/unless}}
+						<tr>
+							<td>Фамилия:</td>
+							<td><input name="input" id="surname" value="{{worker.workersurname}}"></td>
+						</tr> 
+						<tr>
+							<td>Имя:</td>
+							<td><input name="input" id="wname" value="{{worker.workername}}"></td>
+						</tr>
+						<tr>
+							<td>Отчество:</td>
+							<td><input name="input" id="midname" value="{{worker.workermidname}}"></td>
+						</tr>
+						<tr>
+							<td>Почта:</td>
+							<td><input name="input" id="email" value="{{worker.workeremail}}"></td>
+						</tr>
+						<tr>
+							<td>Телефон:</td>
+							<td><input name="input" id="phone" value="{{worker.workerphone}}"></td>
+						</tr>
+						<tr>
+							<td>Паспорт:</td>
+							<td><input name="input" id="passport" value="{{worker.workerpassport}}"></td>
+						</tr>
+						<tr>
+							<td>Кем выдан:</td>
+							<td><input name="input" id="passportby" value="{{worker.workerpassportby}}"></td>
+						</tr>
+						<tr>
+							<td>Дата выдачи:</td>
+							<td><input type="date" name="input" id="passportdate" value="{{worker.workerpassportdate}}"></td>
+						</tr>
+						{{#if checkCreate}}
+						<tr>
+							<td>Логин:</td>
+							<td><input name="input" id="login"></td>
+						</tr>
+						<tr>
+							<td>Пароль:</td>
+							<td><input name="input" id="password"></td>
+						</tr>
+						{{else}}
+						<tr>
+							<td>Логин:</td>
+							<td><input readonly name="input" id="login" value="{{worker.workerlogin}}"></td>
+						</tr>
+						{{/if}}
+						<tr>
+							<td>Зарплата:</td>
+							<td><input name="input" id="salary" value="{{worker.workersalary}}"></td>
+						</tr>
+						<tr>
+							<td>Опыт работы:</td>
+							<td><input name="input" id="experience" value="{{worker.workerexperience}}"></td>
+						</tr>
+					</table>              
+				</div>
+			</div>
+		{{#if checkCreate}}
+		<button name="create" id="update-button">Создать</button>
+		{{else}}
+		<button name="update" id="update-button">Сохранить</button>
+		{{/if}} 
+		</div>		
 	</body>
 </html>
 <script>
