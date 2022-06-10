@@ -14,17 +14,19 @@
 		<div class="maininfo">
 			<table>
 				<caption><b>Личные данные</b></caption>
+                {{#unless checkCreate}}
                 <tr>
 					<td>ID:</td>
 					<td><input name="input" id="id" value="{{worker.workerID}}"></td>
                 </tr>
+                {{/unless}}
 				<tr>
 					<td>Фамилия:</td>
 					<td><input name="input" id="surname" value="{{worker.workersurname}}"></td>
 				</tr> 
 				<tr>
 					<td>Имя:</td>
-					<td><input name="input" id="name" value="{{worker.workername}}"></td>
+					<td><input name="input" id="wname" value="{{worker.workername}}"></td>
 				</tr>
 				<tr>
 					<td>Отчество:</td>
@@ -48,7 +50,7 @@
 				</tr>
 				<tr>
 					<td>Дата выдачи:</td>
-					<td><input name="input" id="passportdate" value="{{worker.workerpassportdate}}"></td>
+					<td><input type="date" name="input" id="passportdate" value="{{worker.workerpassportdate}}"></td>
 				</tr>
                 {{#if checkCreate}}
                 <tr>
@@ -86,13 +88,13 @@
 </html>
 <script>
 	document.getElementById('update-button').onclick = async function(){
-        var psw = document.getElementById('login');
+        var psw = document.getElementById('password');
         if(psw) psw = psw.value;
         else psw = ""
         var data = {
             ID: document.getElementById('id').value,
             surname:  document.getElementById('surname').value,
-            name:  document.getElementById('name').value,
+            name:  document.getElementById('wname').value,
             midname:  document.getElementById('midname').value,
             email: document.getElementById('email').value,
             phone: document.getElementById('phone').value,
