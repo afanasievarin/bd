@@ -22,7 +22,7 @@
     display: grid;
     /*формируем по 4 одинаковых строки и столбца*/
     grid-template-columns: repeat(2, 400px);
-    grid-template-rows: repeat(2, 400px);
+    grid-template-rows: repeat(2, auto);
 } 
 
   /*внешний вид ячеек*/
@@ -46,4 +46,21 @@ table {
  /* задаст фиксированную ширину для таблицы */
  table {
     width: 380px;
- }
+}
+
+button {
+    border: none;
+    outline: none;
+    display: inline-block;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+    font-size: 12px;
+    font-family: "Ubuntu", sans;
+    margin-top: 10%;
+    margin-left: 69%;
+    margin-bottom: 5%;
+    border-radius: 10px;
+    background-color: #0027d4;
+    color: rgb(255, 255, 255);
+}

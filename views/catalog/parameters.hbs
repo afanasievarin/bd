@@ -4,79 +4,81 @@
 	<meta charset="UTF-8">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/autosize.js/4.0.2/autosize.min.js"></script>
 	<title>Добавление товара</title>
-	<link rel="stylesheet" href="/../css/signin.css">
+	<link rel="stylesheet" href="/../css/parameters.css">
     <link rel="stylesheet" href="/../css/style.css">
 </head>
 	<body>	
         <header class="headernotmain">
         {{> navigationbar}}
-        </header>
-        <button id="update-button">Сохранить</button>
-		<div class="box">
-            <table name="categories">
-            <tr><td colspan="2"><button onclick="add_element(this)">Добавить</button></td></tr>
-            <caption>Категории</caption>
-            <tr>
-                <th>ID</th>
-                <th>Наименование</th>
-            </tr>
-            <tr hidden class="values">
-                <td><div></div></td>
-                <td ><input name="input" id="name" class="table-element"></td>
-                <td><button onclick="delete_element(this)" id="delete-button"name="category">Удалить</button></td>
-            </tr>
-            {{#each categories as |category|}}
-            <tr class="values">
-                <td><div>{{category.categoryID}}</div></td>
-                <td id={{category.categoryID}}><input name="input" id="name" class="table-element" value="{{category.categoryname}}"></td>
-                <td><button onclick="delete_element(this)" id="delete-button"name="category" value="{{category.categoryID}}">Удалить</button></td>
-            </tr>
-            {{/each}}
-            </table>
-        </div>
-        <div class="box" style="margin-top:300px">
-            <table name="itemstatuses">
-            <tr><td colspan="2"><button onclick="add_element(this)">Добавить</button></td></tr>
-            <caption>Статусы</caption>
-            <tr>
-                <th>ID</th>
-                <th>Наименование</th>
-            </tr>
-            <tr hidden class="values">
-                <td><div></div></td>
-                <td ><input name="input" id="name" class="table-element"></td>
-                <td><button onclick="delete_element(this)" id="delete-button"name="itemstatus">Удалить</button></td>
-            </tr>
-            {{#each itemstatuses as |status|}}
-            <tr class="values">
-                <td><div>{{status.itemstatusID}}</div></td>
-                <td id={{status.itemstatusID}}><input name="input" id="name" class="table-element" value="{{status.itemstatusname}}"></td>
-                <td><button onclick="delete_element(this)" id="delete-button"name="itemstatus" value="{{status.itemstatusID}}">Удалить</button></td>
-            </tr>
-            {{/each}}
-            </table>
-        </div>
-        <div class="box" style="margin-top:600px">
-            <table name="itemconditions">
-            <tr><td colspan="2"><button onclick="add_element(this)">Добавить</button></td></tr>
-            <caption>Состояния</caption>
-            <tr>
-                <th>ID</th>
-                <th>Наименование</th>
-            </tr>
-            <tr hidden class="values">
-                <td><div></div></td>
-                <td ><input name="input" id="name" class="table-element"></td>
-                <td><button onclick="delete_element(this)" id="delete-button"name="itemcondition">Удалить</button></td>
-            </tr>
-            {{#each itemconditions as |condition|}}
-            <tr class="values">
-                <td><div>{{condition.itemconditionID}}</div></td>
-                <td id={{condition.itemconditionID}}><input name="input" id="name" class="table-element" value="{{condition.itemconditionname}}"></td>
-                <td><button onclick="delete_element(this)" id="delete-button"name="itemcondition" value="{{condition.itemconditionID}}">Удалить</button></td>
-            </tr>
-            {{/each}}
-            </table>
+        </header>        
+        <button class="upbtn" id="update-button">Сохранить</button>
+        <div class="grid">
+            <div class="box">
+                <table name="categories">
+                <tr><td colspan="2"><button onclick="add_element(this)">Добавить</button></td></tr>
+                <caption>Категории</caption>
+                <tr>
+                    <th>ID</th>
+                    <th>Наименование</th>
+                </tr>
+                <tr hidden class="values">
+                    <td><div></div></td>
+                    <td ><input name="input" id="name" class="table-element"></td>
+                    <td><button onclick="delete_element(this)" id="delete-button"name="category">Удалить</button></td>
+                </tr>
+                {{#each categories as |category|}}
+                <tr class="values">
+                    <td><div>{{category.categoryID}}</div></td>
+                    <td id={{category.categoryID}}><input name="input" id="name" class="table-element" value="{{category.categoryname}}"></td>
+                    <td><button onclick="delete_element(this)" id="delete-button"name="category" value="{{category.categoryID}}">Удалить</button></td>
+                </tr>
+                {{/each}}
+                </table>
+            </div>
+            <div class="box">
+                <table name="itemstatuses">
+                <tr><td colspan="2"><button onclick="add_element(this)">Добавить</button></td></tr>
+                <caption>Статусы</caption>
+                <tr>
+                    <th>ID</th>
+                    <th>Наименование</th>
+                </tr>
+                <tr hidden class="values">
+                    <td><div></div></td>
+                    <td ><input name="input" id="name" class="table-element"></td>
+                    <td><button onclick="delete_element(this)" id="delete-button"name="itemstatus">Удалить</button></td>
+                </tr>
+                {{#each itemstatuses as |status|}}
+                <tr class="values">
+                    <td><div>{{status.itemstatusID}}</div></td>
+                    <td id={{status.itemstatusID}}><input name="input" id="name" class="table-element" value="{{status.itemstatusname}}"></td>
+                    <td><button onclick="delete_element(this)" id="delete-button"name="itemstatus" value="{{status.itemstatusID}}">Удалить</button></td>
+                </tr>
+                {{/each}}
+                </table>
+            </div>
+            <div class="box">
+                <table name="itemconditions">
+                <tr><td colspan="2"><button onclick="add_element(this)">Добавить</button></td></tr>
+                <caption>Состояния</caption>
+                <tr>
+                    <th>ID</th>
+                    <th>Наименование</th>
+                </tr>
+                <tr hidden class="values">
+                    <td><div></div></td>
+                    <td ><input name="input" id="name" class="table-element"></td>
+                    <td><button onclick="delete_element(this)" id="delete-button"name="itemcondition">Удалить</button></td>
+                </tr>
+                {{#each itemconditions as |condition|}}
+                <tr class="values">
+                    <td><div>{{condition.itemconditionID}}</div></td>
+                    <td id={{condition.itemconditionID}}><input name="input" id="name" class="table-element" value="{{condition.itemconditionname}}"></td>
+                    <td><button onclick="delete_element(this)" id="delete-button"name="itemcondition" value="{{condition.itemconditionID}}">Удалить</button></td>
+                </tr>
+                {{/each}}
+                </table>
+            </div>
         </div>
 	</body>
 </html>
