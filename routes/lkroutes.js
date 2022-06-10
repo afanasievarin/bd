@@ -20,14 +20,6 @@ router.get("/privatedata",function(request,response){
     response.render("lk/privatedata.hbs")
 }); 
 
-router.get("/signin",function(_,response){
-    response.render("login/signin.hbs")
-});
-
-router.get("/signup",function(_,response){
-    response.render("login/signup.hbs")
-});
-
 
 
 module.exports = router;

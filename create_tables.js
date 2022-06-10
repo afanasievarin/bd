@@ -6,20 +6,17 @@ function createTables(){
   //0 Пользователь
     request[request.length] = `create table if not exists users(
         userID int not null auto_increment,
-        usersurname nvarchar(30) not null,
-        username nvarchar(30) not null,
-        usermidname nvarchar(30),
+        usersurname nvarchar(30) null,
+        username nvarchar(30) null,
+        usermidname nvarchar(30) null,
         userlogin varchar(20) not null,
-        userpassword varchar(20) not null,
-        useremail nvarchar(30) default 'Не указан',
-        userphone nvarchar(11) not null,
-        userpassport nvarchar(10) not null,
-        userpassportby nvarchar(50) not null,
-        userpassportdate date not null,
-        primary key(userID),
-        CHECK((usersurname != '') AND (username != '')
-        AND (userphone != '')  AND (userpassport != '') 
-        AND (userlogin != '') AND (userpassword != ''))
+        userpassword varchar(100) not null,
+        useremail nvarchar(30) not null,
+        userphone nvarchar(11) null,
+        userpassport nvarchar(10) null,
+        userpassportby nvarchar(50) null,
+        userpassportdate date null,
+        primary key(userID)
       )`;
       //1 Работник
       request[request.length] =`create table if not exists workers(
@@ -30,7 +27,7 @@ function createTables(){
         workername nvarchar(30) not null,
         workermidname nvarchar(30),
         workerlogin varchar(20) not null,
-        workerpassword varchar(20) not null,
+        workerpassword varchar(100) not null,
         workersex nvarchar(15) not null,
         workerphone nvarchar(11) not null,
         workerpassport nvarchar(10) not null,
@@ -157,6 +154,14 @@ function createTables(){
         itemID int not null,
         foreign key(supplyID) references supplies(supplyID),
         foreign key(itemID) references items(itemID)
+      )`;
+      //15 Админы
+      request[request.length] =`create table if not exists admins(
+        adminID int not null auto_increment,  
+        adminlogin varchar(30) not null,
+        adminemail varchar(30) not null,
+        adminpassword varchar(100) not null,
+        primary key(adminID)
       )`;
       fill();
       

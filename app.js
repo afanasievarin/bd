@@ -6,6 +6,7 @@ const orderroutes = require("./routes/orderroutes.js");
 const userroutes = require("./routes/userroutes.js");
 const rentroutes = require("./routes/rentroutes.js");
 const lkroutes = require("./routes/lkroutes.js");
+const loginroutes = require("./routes/loginroutes.js");
 
 const express = require("express");
 createTables();
@@ -17,6 +18,8 @@ app.use(orderroutes);
 app.use(userroutes);
 app.use(rentroutes);
 app.use(lkroutes);
+app.use(loginroutes);
+
 app.set("view engine", "hbs");
 
 //ЙОу собаки я наруто узумаки

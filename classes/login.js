@@ -136,7 +136,7 @@ async function verifyToken(req,res,next){
     //const token = req.headers['token'];
     if(!fakeToken)
     {
-        res.redirect("/login");
+        res.redirect("/signin");
     }
     else
     {

@@ -28,3 +28,27 @@
         </form>	
     </div>
 </html>
+<script>
+    document.getElementById('reg-btn').onclick = async function() {
+        var data={
+            email: document.getElementById('email').value,
+            login: document.getElementById('login').value,
+            password: document.getElementById('password').value
+        }
+        console.log(data);
+        if(!data.login || /\s/g.test(data.login) || data.login.lenght> 20){alert("Некорректный логин");return;}
+        if(!data.email || /\s/g.test(data.email) || data.email.lenght> 20){alert("Некорректная почта");return;}
+        if(!data.password || /\s/g.test(data.password) || data.password.lenght> 20){alert("Некорректный пароль");return;}
+        if(data.password != document.getElementById('repassword').value){alert("Пароли не совпадают"); return;}
+
+        const response = await fetch('/signup', {
+            method: 'post',
+            body: JSON.stringify(data),
+            headers: {'Content-Type': 'application/json'}
+        });
+        if(response.status == 400){alert("Ошибка регистрации");return;}
+        alert("Регистрация прошла успешно");
+        location.assign("/signin");
+    }   
+
+</script>
