@@ -4,14 +4,14 @@ const {getRentableItems, getItemByID} = require("../classes/rent.js");
 
 router.get("/rent", async function(_,response){
     var rentableitems = await getRentableItems();
-    response.render("rent.hbs", {items: rentableitems});
+    response.render("catalog/rent.hbs", {items: rentableitems});
     //console.log(items);
 });
 
 router.get("/rentitempage/:id", async function(request,response){
   var id = request.params.id;
   var item = await getItemByID(id);
-  response.render("rentitempage.hbs", {item: item[0]});
+  response.render("catalog/rentitempage.hbs", {item: item[0]});
   console.log(item);
 });
 

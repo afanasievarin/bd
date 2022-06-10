@@ -11,9 +11,8 @@
         {{> navigationbar}}
     </header>
     <div class="container products__container">
-        {{> emptyitem item}}
         <ul class="imdiz-products_row">
-            
+            {{> emptyitem}}
             {{#each items}}
                 {{> item item=this}} 
             {{/each}}

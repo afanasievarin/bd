@@ -4,8 +4,8 @@ const pool = mysql.createConnection({
     //connectionLimit: 5,
     host: "localhost",
     user: "root",
-    database: "AnimeBD",
-    password: "ForeverYoungAndSmile",
+    database: "animebd",
+    password: "IndiAndDigo159",
     dateStrings: true
   }).promise();
 

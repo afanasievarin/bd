@@ -21,7 +21,7 @@ async function getRentableItems(){
         ON items.itemstatusID = itemstatuses.itemstatusID
         INNER JOIN itemconditions 
         ON items.itemconditionID = itemconditions.itemconditionID
-        WHERE items.isrentable = 1
+        WHERE items.itemisrentable = 1
     `)
     .catch(err =>{
         console.log(err);
