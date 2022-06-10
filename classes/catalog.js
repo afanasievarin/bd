@@ -66,9 +66,8 @@ async function getItemsUpdateData(){
 
 async function createItem(data){
     var result;
-    var rent;
+    var rent = 0;
     if(data.isrentable) rent = 1;
-    else rent = 0;
       await pool.execute(`
           INSERT items(itemname,itemdescription, itemimagepath, itemcount, itemprice, itemisrentable, itemauthor, itemagelimit, categoryID, itemstatusID,itemconditionID)
           VALUES ("${data.name}","${data.description}","${data.imagepath}","${data.count}","${data.price}",
@@ -83,4 +82,34 @@ async function createItem(data){
     });
     return result;
   }
-module.exports = {getItems, getItemByID,getItemsUpdateData, createItem};
+
+async function updateItem(data){
+    var result;
+    var rent = 0;
+    if(data.isrentable) rent = 1;
+    await pool.execute(`
+        UPDATE items
+        SET 
+        itemname = "${data.name}",
+        itemdescription = "${data.description}",
+        itemimagepath = "${data.imagepath}",
+        itemcount = "${data.count}",
+        itemprice = "${data.price}",
+        itemisrentable = "${rent}",
+        itemauthor = "${data.author}",
+        itemagelimit ="${data.agelimit}",
+        categoryID = "${data.categoryID}",
+        itemstatusID = "${data.statusID}",
+        itemconditionID = "${data.conditionID}"
+        WHERE itemID = "${data.ID}"
+    `)
+    .then(()=>{
+        result =true;
+    })
+    .catch(err=>{
+        console.log(err);
+        result = false;
+    });
+    return result;
+}
+module.exports = {getItems, getItemByID,getItemsUpdateData, createItem,updateItem};

@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const {getItems, getItemByID,getItemsUpdateData,createItem} = require("../classes/catalog.js");
+const {getItems, getItemByID,getItemsUpdateData,createItem,updateItem} = require("../classes/catalog.js");
 var bodyParser = require('body-parser');
 var jsonParser = bodyParser.json();
 
@@ -25,6 +25,19 @@ router.get("/items/create", async function(request,response){
 router.post("/items/create",jsonParser, async function(request,response){
   if(!request.body || !await createItem(request.body)) response.sendStatus(400);
   else response.sendStatus(200);
+});
+
+router.get("/items/update/:id", async function(request,response){
+  var item = await getItemByID(request.params.id);
+  var data = await getItemsUpdateData();
+  var isrent;
+  parseInt(item[0].itemisrentable) == 0 ? isrent = "" : isrent="checked";
+  response.render("catalog/createitem.hbs",{item:item[0],isrent:isrent,categories: data.categories,itemstatuses: data.itemstatuses,itemconditions: data.itemconditions})
+});
+
+router.post("/items/update",jsonParser, async function(request,response){
+if(!request.body || !await updateItem(request.body)) response.sendStatus(400);
+else response.sendStatus(200);
 });
 
 module.exports = router;

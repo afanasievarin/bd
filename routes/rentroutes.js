@@ -12,7 +12,6 @@ router.get("/rentitempage/:id", async function(request,response){
   var id = request.params.id;
   var item = await getItemByID(id);
   response.render("catalog/rentitempage.hbs", {item: item[0]});
-  console.log(item);
 });
 
 module.exports = router;

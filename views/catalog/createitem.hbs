@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/autosize.js/4.0.2/autosize.min.js"></script>
 	<title>Добавление товара</title>
 	<link rel="stylesheet" href="/../css/signin.css">
     <link rel="stylesheet" href="/../css/style.css">
@@ -11,6 +12,10 @@
         {{> navigationbar}}
         </header>
 		<div class="box">
+            <input hidden id="id" value="{{item.itemID}}">
+            <input hidden id="catid" value="{{item.categoryID}}">
+            <input hidden id="statid" value="{{item.itemstatusID}}">
+            <input hidden id="condid" value="{{item.itemconditionID}}">
             <form>
                 <table>
                     <tr>
@@ -19,33 +24,33 @@
                     </tr>
                     <tr>
                         <th>Название</th>
-                        <td><input id="name" type="text" required=""/></td>
+                        <td><input id="name" type="text" value="{{item.itemname}}"/></td>
                     </tr> 
                     <tr>	
                         <th>Автор/Производитель</th>
-                        <td><input id="author" type="text" required=""/></td>
+                        <td><input id="author" type="text" value="{{item.itemauthor}}"/></td>
                            
                     </tr>
                     <tr>	
                         <th>Количество</th>
-                        <td><input id="count" type="text" required=""/></td>
+                        <td><input id="count" type="text" value="{{item.itemcount}}"/></td>
                             
                     </tr>
                     <tr>	
                         <th>Стоимость</th>
-                        <td><input id="price" type="text" required=""/></td>
+                        <td><input id="price" type="text" value="{{item.itemprice}}"/></td>
                     </tr>
                     <tr>	
                         <th>Возрастное ограничение</th>
-                        <td><input id="age" type="text" required=""/></td>
+                        <td><input id="age" type="text" value="{{item.itemagelimit}}"/></td>
                     </tr>
                     <tr>
                         <th>Арендуемый</th>
-                        <td><input type="checkbox" id="isrent"></td>
+                        <td><input type="checkbox" id="isrent" {{isrent}}></td>
                     </tr>
                     <tr>
                         <th>Ссылка на изображение</th>
-                        <td><input type="text" id="image"></td>
+                        <td><input type="text" id="image" value="{{item.itemimagepath}}"></td>
                     </tr>
                     <tr>
                         <th>Статус товара</th>
@@ -80,8 +85,7 @@
                     <tr>
                         <th>Описание</th>
                         <td>
-                        <textarea oninput="auto_grow(this)" id="desc" class="teaxtarea-element" type="text" required=""/>
-                        </textarea>
+                        <textarea oninput="auto_grow(this)" id="description" class="teaxtarea-element" type="text" required=""/>{{item.itemdescription}}</textarea>
                         </td>
                     </tr>
                 </table>
@@ -91,10 +95,19 @@
 	</body>
 </html>
 <script>
+    window.onload = function(){
+        document.getElementById('status').value = document.getElementById('statid').value;
+        document.getElementById('condition').value = document.getElementById('condid').value;
+        document.getElementById('category').value = document.getElementById('catid').value;
+    }
+    document.addEventListener('DOMContentLoaded', function() {
+    autosize(document.querySelectorAll('#description'));
+    }, false);
     document.getElementById('save-btn').onclick = async function(){
         var data={
+            ID: document.getElementById('id').value,
             name: document.getElementById('name').value,
-            description: document.getElementById('desc').value,
+            description: document.getElementById('description').value,
             imagepath: document.getElementById('image').value,
             agelimit: document.getElementById('age').value,
             price: document.getElementById('price').value,
@@ -119,8 +132,9 @@
             alert("Неверный формат ссылки на изображение");
             return;  
         }
-
-        const response = await fetch('/items/create', {
+        var url = "create";
+        if (data.ID) url = "update";
+        const response = await fetch('/items/'+url, {
             method: 'post',
             body: JSON.stringify(data),
             headers: {'Content-Type': 'application/json'}
