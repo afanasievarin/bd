@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/autosize.js/4.0.2/autosize.min.js"></script>
+	<title>Добавление товара</title>
+	<link rel="stylesheet" href="/../css/signin.css">
+    <link rel="stylesheet" href="/../css/style.css">
+</head>
+	<body>	
+        <header class="headernotmain">
+        {{> navigationbar}}
+        </header>
+        <button id="update-button">Сохранить</button>
+		<div class="box">
+            <table name="categories">
+            <tr><td colspan="2"><button onclick="add_element(this)">Добавить</button></td></tr>
+            <caption>Категории</caption>
+            <tr>
+                <th>ID</th>
+                <th>Наименование</th>
+            </tr>
+            <tr hidden class="values">
+                <td><div></div></td>
+                <td ><input name="input" id="name" class="table-element"></td>
+                <td><button onclick="delete_element(this)" id="delete-button"name="category">Удалить</button></td>
+            </tr>
+            {{#each categories as |category|}}
+            <tr class="values">
+                <td><div>{{category.categoryID}}</div></td>
+                <td id={{category.categoryID}}><input name="input" id="name" class="table-element" value="{{category.categoryname}}"></td>
+                <td><button onclick="delete_element(this)" id="delete-button"name="category" value="{{category.categoryID}}">Удалить</button></td>
+            </tr>
+            {{/each}}
+            </table>
+        </div>
+        <div class="box" style="margin-top:300px">
+            <table name="itemstatuses">
+            <tr><td colspan="2"><button onclick="add_element(this)">Добавить</button></td></tr>
+            <caption>Статусы</caption>
+            <tr>
+                <th>ID</th>
+                <th>Наименование</th>
+            </tr>
+            <tr hidden class="values">
+                <td><div></div></td>
+                <td ><input name="input" id="name" class="table-element"></td>
+                <td><button onclick="delete_element(this)" id="delete-button"name="itemstatus">Удалить</button></td>
+            </tr>
+            {{#each itemstatuses as |status|}}
+            <tr class="values">
+                <td><div>{{status.itemstatusID}}</div></td>
+                <td id={{status.itemstatusID}}><input name="input" id="name" class="table-element" value="{{status.itemstatusname}}"></td>
+                <td><button onclick="delete_element(this)" id="delete-button"name="itemstatus" value="{{status.itemstatusID}}">Удалить</button></td>
+            </tr>
+            {{/each}}
+            </table>
+        </div>
+        <div class="box" style="margin-top:600px">
+            <table name="itemconditions">
+            <tr><td colspan="2"><button onclick="add_element(this)">Добавить</button></td></tr>
+            <caption>Состояния</caption>
+            <tr>
+                <th>ID</th>
+                <th>Наименование</th>
+            </tr>
+            <tr hidden class="values">
+                <td><div></div></td>
+                <td ><input name="input" id="name" class="table-element"></td>
+                <td><button onclick="delete_element(this)" id="delete-button"name="itemcondition">Удалить</button></td>
+            </tr>
+            {{#each itemconditions as |condition|}}
+            <tr class="values">
+                <td><div>{{condition.itemconditionID}}</div></td>
+                <td id={{condition.itemconditionID}}><input name="input" id="name" class="table-element" value="{{condition.itemconditionname}}"></td>
+                <td><button onclick="delete_element(this)" id="delete-button"name="itemcondition" value="{{condition.itemconditionID}}">Удалить</button></td>
+            </tr>
+            {{/each}}
+            </table>
+        </div>
+	</body>
+</html>
+<script>
+    document.getElementById('update-button').onclick = async function(){
+    var tables = document.querySelectorAll('table');
+    var editdata = {};
+    var createdata = {};
+    tables.forEach(function(table){
+        var name = table.getAttribute('name');
+        var edittemp = [];
+        var createtemp = [];
+        var isChanged = false;
+        var inputs = table.querySelectorAll('.table-element');
+        inputs.forEach(function(input){
+            if(input.value && input.value != input.defaultValue)
+            {   
+                var id = input.closest("td").getAttribute('id');
+                var temp = [];
+            
+                if(id)
+                {
+                    temp.push(id);
+                    temp.push(input.value);
+                    edittemp.push(temp);
+                }
+                else 
+                {
+                    temp.push(input.value);
+                    createtemp.push(temp);
+                }
+            }
+            });
+        editdata[name] = edittemp;
+        createdata[name] = createtemp;
+    });
+
+    data = {editdata: editdata, createdata: createdata};
+    console.log(data);
+    const response = await fetch('/items/parameters/edit', {
+        method: 'post',
+        body: JSON.stringify(data),
+        headers: {'Content-Type': 'application/json'}
+    });
+    
+    }
+
+
+    var deletebut = document.getElementById('delete-button');
+    async function delete_element(elem){
+        if(elem.value){
+            var id = elem.value;
+            var data = {name: elem.getAttribute('name')};
+            console.log(name);
+            const response = await fetch('/items/parameters/delete/'+ id, {
+                method: 'post',
+                body:JSON.stringify(data),
+                headers: {'Content-Type': 'application/json'}
+            });
+            if (response.status == 400) {alert("Ошибка");return;}
+        }
+        var tr = elem.closest("tr");
+        tr.remove();
+    }
+
+    function add_element(elem){
+       var table = elem.closest("table");
+       var row = table.insertRow(3);
+       row.insertCell(0);
+       var tr = table.querySelector(".values");
+       var inputs = tr.querySelectorAll(".table-element");
+       inputs.forEach(function(input){
+            var el = input.cloneNode(true);
+            el.value = "";
+            row.insertCell().append(el);
+        });
+       var but = deletebut.cloneNode(true);
+       row.insertCell().append(but);
+    }
+</script>

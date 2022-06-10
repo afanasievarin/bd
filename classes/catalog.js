@@ -112,4 +112,107 @@ async function updateItem(data){
     });
     return result;
 }
-module.exports = {getItems, getItemByID,getItemsUpdateData, createItem,updateItem};
+
+async function deleteParameterForID(type,id){
+    var result;
+    var table =type;
+    if(table ==="category") table = "categorie"
+    await pool.execute(`
+        DELETE 
+        FROM ${table}s
+        WHERE ${type}ID = "${id}"
+    `)
+    .then(()=>{
+        result =true;
+    })
+    .catch(err=>{
+        console.log(err);
+        result = false;
+    });
+    return result;
+  }
+
+  async function editParameters(data){
+    var result;
+    
+    if(data.createdata.categories && data.createdata.categories.length > 0)
+      await pool.query(`
+        INSERT INTO categories(categoryname)
+        VALUES ?`,[data.createdata.categories])
+      .then(()=>{
+        result =true;
+      })
+      .catch(err=>{
+          console.log(err);
+          result = false;
+      });
+
+    if(data.createdata.itemstatuses && data.createdata.itemstatuses.length > 0)
+      await pool.query(`
+        INSERT INTO itemstatuses(itemstatusname)
+        VALUES ?`,[data.createdata.itemstatuses])
+      .then(()=>{
+        result =true;
+      })
+      .catch(err=>{
+          console.log(err);
+          result = false;
+      });
+    if(data.createdata.itemconditions && data.createdata.itemconditions.length > 0)
+      await pool.query(`
+        INSERT INTO itemconditions(itemconditionname)
+        VALUES ?`,[data.createdata.itemconditions])
+      .then(()=>{
+        result =true;
+      })
+      .catch(err=>{
+          console.log(err);
+          result = false;
+      });
+  
+    if(data.editdata.itemstatuses)
+    for(const element of data.editdata.itemstatuses){
+      await pool.execute(`
+      UPDATE itemstatuses
+      SET itemstatusname = "${element[1]}"
+      WHERE itemstatusID = "${element[0]}"`)
+    .then(()=>{
+      result =true;
+    })
+    .catch(err=>{
+        console.log(err);
+        result = false;
+    });
+    };
+    
+    if(data.editdata.itemconditions)
+    for(const element of data.editdata.itemconditions){
+      await pool.execute(`
+      UPDATE itemconditions
+      SET itemconditionname = "${element[1]}"
+      WHERE itemconditionID = "${element[0]}"`)
+    .then(()=>{
+      result =true;
+    })
+    .catch(err=>{
+        console.log(err);
+        result = false;
+    });
+    };
+    if(data.editdata.categories)
+    for(const element of data.editdata.categories){
+      await pool.execute(`
+      UPDATE categories
+      SET categoryname = "${element[1]}"
+      WHERE categoryID = "${element[0]}"`)
+    .then(()=>{
+      result =true;
+    })
+    .catch(err=>{
+        console.log(err);
+        result = false;
+    });
+    };
+    return result;
+  }
+module.exports = {getItems, getItemByID,getItemsUpdateData, createItem,updateItem,deleteParameterForID,editParameters};
