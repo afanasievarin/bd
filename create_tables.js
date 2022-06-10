@@ -28,17 +28,11 @@ function createTables(){
         workermidname nvarchar(30),
         workerlogin varchar(20) not null,
         workerpassword varchar(100) not null,
-        workersex nvarchar(15) not null,
         workerphone nvarchar(11) not null,
         workerpassport nvarchar(10) not null,
         workerpassportby nvarchar(50) not null,
         workerpassportdate date not null,
-        workeraddress nvarchar(50) not null,
-        primary key(workerID),
-        CHECK((workersurname != '') AND (workername != '') AND (workersex != '') 
-        AND (workerphone != '') AND (workerpassport != '') 
-        AND (workerlogin != '') AND (workerpassword != '')
-        AND (workeraddress !=''))
+        primary key(workerID)
       )`;
       //2 статус заказа
       request[request.length] =`create table if not exists orderstatuses(

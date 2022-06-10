@@ -6,7 +6,6 @@ const {verifyToken, checkIfAdmin, checkIfWorker} = require("../classes/login.js"
 router.get("/rent", async function(_,response){
     var rentableitems = await getRentableItems();
     response.render("catalog/rent.hbs", {items: rentableitems});
-    //console.log(items);
 });
 
 router.get("/rentitempage/:id", async function(request,response){

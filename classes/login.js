@@ -85,7 +85,6 @@ async function searchAdmins(user){
     .catch((err)=>{
         console.log(err);
     })
-    console.log(data[0]);
     if(data[0][0] && await compareAsync(user.password, data[0][0].adminpassword))
     {
         var temp = {
@@ -108,7 +107,6 @@ async function searchWorkers(user){
     .catch((err)=>{
         console.log(err);
     })
-    console.log(data[0]);
     if(data[0][0] && await compareAsync(user.password, data[0][0].workerpassword))
     {
         var temp = {
@@ -131,7 +129,6 @@ async function searchUsers(user){
     .catch((err)=>{
         console.log(err);
     })
-    console.log(data[0]);
     if(data[0][0] && await compareAsync(user.password, data[0][0].userpassword))
     {
         var temp = {

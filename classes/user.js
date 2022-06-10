@@ -10,11 +10,9 @@ async function getUserByID(ID){
     .catch(err =>{
         console.log(err);
     });
-    //console.log(items[0]);
-    console.log(user[0]);
     return user[0];
 }
-async function updateUserForID(data){
+async function updateUserByID(data){
     var result;
     var date = data.passportdate;
     if(!data.passportdate || data.passportdate == "") date="0000-00-00";
@@ -40,4 +38,4 @@ async function updateUserForID(data){
     });
     return result;
 }
-module.exports = {getUserByID,updateUserForID};
+module.exports = {getUserByID,updateUserByID};

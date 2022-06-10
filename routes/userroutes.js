@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const {getUserByID, updateUserForID} = require("../classes/user.js");
+const {getUserByID, updateUserByID} = require("../classes/user.js");
 const {verifyToken, checkIfAdmin, checkIfWorker} = require("../classes/login.js");
 var bodyParser = require('body-parser');
 var jsonParser = bodyParser.json();
@@ -12,7 +12,7 @@ router.get("/user",verifyToken, async function(request,response){
 });
 
 router.post("/users/user/update", jsonParser, async function(request,response){
-  if(!request.body || !await updateUserForID(request.body)) response.sendStatus(400);
+  if(!request.body || !await updateUserByID(request.body)) response.sendStatus(400);
   else response.sendStatus(200);
 });
 

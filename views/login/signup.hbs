@@ -37,7 +37,7 @@
         }
         console.log(data);
         if(!data.login || /\s/g.test(data.login) || data.login.lenght> 20){alert("Некорректный логин");return;}
-        if(!data.email || /\s/g.test(data.email) || data.email.lenght> 20){alert("Некорректная почта");return;}
+        if(!data.email || !/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(data.email) || data.email.lenght> 20){alert("Некорректная почта");return;}
         if(!data.password || /\s/g.test(data.password) || data.password.lenght> 20){alert("Некорректный пароль");return;}
         if(data.password != document.getElementById('repassword').value){alert("Пароли не совпадают"); return;}
 

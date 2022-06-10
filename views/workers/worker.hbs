@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" href="/../css/privatedata.css">
+    <link rel="stylesheet" href="/../css/style.css">
+</head>
+	<body>	
+		<header class="headernotmain">		
+			{{> navigationbar}}
+		</header>
+		<div class="data-container">
+		<div class="grid">
+		<div class="maininfo">
+			<table>
+				<caption><b>Личные данные</b></caption>
+                <tr>
+					<td>ID:</td>
+					<td><input name="input" id="id" value="{{worker.workerID}}"></td>
+                </tr>
+				<tr>
+					<td>Фамилия:</td>
+					<td><input name="input" id="surname" value="{{worker.workersurname}}"></td>
+				</tr> 
+				<tr>
+					<td>Имя:</td>
+					<td><input name="input" id="name" value="{{worker.workername}}"></td>
+				</tr>
+				<tr>
+					<td>Отчество:</td>
+					<td><input name="input" id="midname" value="{{worker.workermidname}}"></td>
+				</tr>
+				<tr>
+					<td>Почта:</td>
+					<td><input name="input" id="email" value="{{worker.workeremail}}"></td>
+				</tr>
+				<tr>
+					<td>Телефон:</td>
+					<td><input name="input" id="phone" value="{{worker.workerphone}}"></td>
+				</tr>
+				<tr>
+					<td>Паспорт:</td>
+					<td><input name="input" id="passport" value="{{worker.workerpassport}}"></td>
+				</tr>
+				<tr>
+					<td>Кем выдан:</td>
+					<td><input name="input" id="passportby" value="{{worker.workerpassportby}}"></td>
+				</tr>
+				<tr>
+					<td>Дата выдачи:</td>
+					<td><input name="input" id="passportdate" value="{{worker.workerpassportdate}}"></td>
+				</tr>
+                {{#if checkCreate}}
+                <tr>
+					<td>Логин:</td>
+					<td><input name="input" id="login"></td>
+				</tr>
+                <tr>
+					<td>Пароль:</td>
+					<td><input name="input" id="password"></td>
+				</tr>
+                {{else}}
+                <tr>
+					<td>Логин:</td>
+					<td><input readonly name="input" id="login" value="{{worker.workerlogin}}"></td>
+				</tr>
+                {{/if}}
+                <tr>
+					<td>Зарплата:</td>
+					<td><input name="input" id="salary" value="{{worker.workersalary}}"></td>
+				</tr>
+                <tr>
+					<td>Опыт работы:</td>
+					<td><input name="input" id="experience" value="{{worker.workerexprerience}}"></td>
+				</tr>
+			</table>
+		</div>
+            {{#if create}}
+            <button name="create" id="update-button">Создать</button>
+            {{else}}
+            <button name="update" id="update-button">Сохранить</button>
+            {{/if}}
+		</div>                
+		</div>
+	</body>
+</html>
+<script>
+	document.getElementById('update-button').onclick = async function(){
+        var psw = document.getElementById('login');
+        if(psw) psw = psw.value;
+        else psw = ""
+        var data = {
+            ID: document.getElementById('id').value,
+            surname:  document.getElementById('surname').value,
+            name:  document.getElementById('name').value,
+            midname:  document.getElementById('midname').value,
+            email: document.getElementById('email').value,
+            phone: document.getElementById('phone').value,
+            passport: document.getElementById('passport').value,
+            passportby: document.getElementById('passportby').value,
+            passportdate: document.getElementById('passportdate').value,
+            salary: document.getElementById('salary').value,
+            experience: document.getElementById('experience').value,
+            login: document.getElementById('login').value,
+            password: psw
+        };
+		if(!data.surname) {alert("Введите фамилию"); return;}
+        if(data.surname.length > 30){alert("Фамилия не должна быть длиннее 30 симоволов"); return;}
+
+        if(!data.name) {alert("Введите имя"); return;}
+		if(data.name.length > 30){alert("Имя не должно быть длиннее 30 симоволов"); return;}
+
+        if(!data.midname) {alert("Введите отчество"); return;}
+		if(data.midname.length > 30){alert("Отчество не должно быть длиннее 30 симоволов"); return;}
+
+        if(!data.email){alert("Введите email"); return;}
+		if(!/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(data.email) || data.email.length > 30){alert("Неверный формат почты"); return;}
+
+        if(!data.phone){alert("Введите телефон"); return;}
+		if(!/^\d+$/.test(data.phone) || data.phone.length > 11){alert("Некорректный номер телефона");return;}
+
+		if(!data.passport) {alert("Введите паспортные данные"); return;}
+        if(!/^\d+$/.test(data.passport) || data.passport.length !=10){alert("Некорректные номер и серия паспорта");return;}
+
+		if(!data.passportby) {alert("Введите место выдачи паспорта"); return;}
+        if(data.passportby.lenght > 50){alert("Место выдачи должно быть не длиннее 50 символов");return;}
+
+		if(!data.passportdate) {alert("Введите дату выдачи паспорта"); return;}
+        var date = data.passportdate.split(/[- :]/);
+        var curdate = new Date();
+        if(parseInt(date[0]) > curdate.getFullYear()-14 || parseInt(date[0]) < curdate.getFullYear()-80){alert("Некорректная дата");return;}
+
+        if(!data.salary || !/^\d+$/.test(data.salary) || data.salary > 499999){alert("Некорректная зарплата");return;}
+        if(!data.experience || !/^\d+$/.test(data.experience) || data.experience > 80){alert("Некорректный опыт работы");return;}
+
+        if(psw != "")
+            if(data.password.length < 3){alert("Пароль не должен быть короче 3 симоволов"); return;}
+            if(data.password.length > 20){alert("Пароль не должен быть длиннее 20 симоволов"); return;}
+
+        const req = document.getElementById("update-button").getAttribute("name");
+
+		const response = await fetch('/workers/worker/'+req, {
+            method: 'post',
+            body: JSON.stringify(data),
+            headers: {'Content-Type': 'application/json'}
+        });
+		if(response.status == 200) alert("Запись успешно обновлена");
+		else alert("Ошибка при обновлении записи");
+	}
+</script>
