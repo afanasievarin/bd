@@ -12,6 +12,7 @@
 		<div class="data-container">
 		<div class="grid">
 		<div class="maininfo">
+			<input hidden id="id" value="{{worker.workerID}}">
 			<table>
 				<caption><b>Личные данные</b></caption>
                 {{#unless checkCreate}}
@@ -73,11 +74,11 @@
 				</tr>
                 <tr>
 					<td>Опыт работы:</td>
-					<td><input name="input" id="experience" value="{{worker.workerexprerience}}"></td>
+					<td><input name="input" id="experience" value="{{worker.workerexperience}}"></td>
 				</tr>
 			</table>
 		</div>
-            {{#if create}}
+            {{#if checkCreate}}
             <button name="create" id="update-button">Создать</button>
             {{else}}
             <button name="update" id="update-button">Сохранить</button>

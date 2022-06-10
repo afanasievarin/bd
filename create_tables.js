@@ -25,6 +25,7 @@ function createTables(){
         workerexperience tinyint default 0,
         workersurname nvarchar(30) not null,
         workername nvarchar(30) not null,
+        workeremail nvarchar(30) not null,
         workermidname nvarchar(30),
         workerlogin varchar(20) not null,
         workerpassword varchar(100) not null,

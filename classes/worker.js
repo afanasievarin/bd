@@ -1,4 +1,7 @@
 const pool = require('../init.js');
+const bcrypt = require("bcrypt");
+
+const saltRounds = 10;
 
 async function getWorkers(){
     let workers = await pool.execute(`
@@ -37,7 +40,9 @@ async function updateWorkerByID(data){
         workerphone = "${data.phone}",
         workerpassport ="${data.passport}",
         workerpassportby = "${data.passportby}",
-        workerpassportdate = "${date}"
+        workerpassportdate = "${date}",
+        workersalary = "${data.salary}",
+        workerexperience = "${data.experience}"
         WHERE workerID = "${data.ID}"
     `)
     .then(()=>{
@@ -52,7 +57,7 @@ async function updateWorkerByID(data){
 
 async function createWorker(data){
     var result;
-    const psw = bcrypt.hashSync(data.studentpassword, saltRounds);
+    const psw = bcrypt.hashSync(data.password, saltRounds);
     await pool.execute(`
   INSERT workers(workersurname, workername, workermidname, workerlogin, workerpassword,
      workeremail, workerphone, workerpassport, workerpassportby, workerpassportdate, workersalary, workerexperience)
@@ -68,6 +73,7 @@ async function createWorker(data){
     console.log(err);
     result = false;
 });
+console.log(result);
 return result;
 }
 

@@ -10,7 +10,7 @@ router.get("/workers",verifyToken,checkIfAdmin, async function(request,response)
     response.render("workers/workers.hbs", {workers: workers,token: request.fakeToken});
 });
 
-router.get("/worker/worker/:id",verifyToken,checkIfAdmin, async function(request,response){
+router.get("/workers/worker/:id",verifyToken,checkIfAdmin, async function(request,response){
     var worker = await getWorkerByID(request.params.id);
     response.render("workers/worker.hbs", {worker: worker[0],token: request.fakeToken});
 });
