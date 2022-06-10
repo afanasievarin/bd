@@ -56,8 +56,18 @@
 </html>
 <script>
 	document.getElementById('update-button').onclick = async function(){
+		var user = {
+			ID: document.getElementById('id').value,
+            surname:  "",
+            name:  "",
+            midname:  "",
+            email: "",
+            phone: "",
+            passport: "",
+            passportby: "",
+            passportdate: ""
+		};
         var data = {
-            userID: document.getElementById('id').value,
             surname:  document.getElementById('surname').value,
             name:  document.getElementById('name').value,
             midname:  document.getElementById('midname').value,
@@ -67,23 +77,37 @@
             passportby: document.getElementById('passportby').value,
             passportdate: document.getElementById('passportdate').value
         };
-		if(!data.surname){alert("Введите фамилию"); return;}
-        if(!data.name){alert("Введите имя"); return;}
-        if(data.surname.length > 30){alert("Фамилия не должна быть длиннее 30 симоволов"); return;}
-        if(data.name.length > 30){alert("Имя не должно быть длиннее 30 симоволов"); return;}
-        if(data.midname.length > 30){alert("Отчество не должно быть длиннее 30 симоволов"); return;}
-        if(!/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(data.email) || data.email.length > 30){alert("Неверный email"); return;}
-        if(!/^\d+$/.test(data.phone) || data.phone.length > 11){alert("Некорректный номер телефона");return;}
-        if(!/^\d+$/.test(data.passport) || data.passport.length !=10){alert("Некорректные номер и серия паспорта");return;}
-        if(data.passportby.lenght > 50){alert("Место выдачи должно быть не длиннее 50 символов");return;}
-        var date = data.studentpassportdate.split(/[- :]/);
-        if(!data.passportdate){alert("Некорректный формат даты");return;}
-        var curdate = new Date();
-        if(parseInt(date[0]) > curdate.getFullYear()-14 || parseInt(date[0]) < curdate.getFullYear()-80){alert("Некорректный год");return;}
-
+		if(data.surname)
+			if(data.surname.length > 30){alert("Фамилия не должна быть длиннее 30 симоволов"); return;}
+			else user.surname = data.surname;
+        if(data.name)
+			if(data.name.length > 30){alert("Имя не должно быть длиннее 30 симоволов"); return;}
+			else user.name = data.name;
+        if(data.midname)
+			if(data.midname.length > 30){alert("Отчество не должно быть длиннее 30 симоволов"); return;}
+			else user.midname = data.midname;
+        if(data.email)
+			if(!/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(data.email) || data.email.length > 30){alert("Неверный формат почты"); return;}
+			else user.email = data.email;
+        if(data.phone)
+			if(!/^\d+$/.test(data.phone) || data.phone.length > 11){alert("Некорректный номер телефона");return;}
+			else user.phone = data.phone;
+		if(data.passport)
+        	if(!/^\d+$/.test(data.passport) || data.passport.length !=10){alert("Некорректные номер и серия паспорта");return;}
+			else user.passport = data.passport;
+		if(data.passportby)
+        	if(data.passportby.lenght > 50){alert("Место выдачи должно быть не длиннее 50 символов");return;}
+			else user.passportby = data.passportby;
+		if(data.passportdate)
+		{
+			var date = data.passportdate.split(/[- :]/);
+			var curdate = new Date();
+			if(parseInt(date[0]) > curdate.getFullYear()-14 || parseInt(date[0]) < curdate.getFullYear()-80){alert("Некорректная дата");return;}
+			else user.passportdate = data.passportdate;
+		}
 		const response = await fetch('/users/user/update', {
             method: 'post',
-            body: JSON.stringify(data),
+            body: JSON.stringify(user),
             headers: {'Content-Type': 'application/json'}
         });
 		if(response.status == 200) alert("Запись успешно обновлена");

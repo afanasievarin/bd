@@ -16,10 +16,6 @@ router.get("/lk",function(_,response){
     response.render("lk/lk.hbs")
 }); 
 
-router.get("/privatedata",function(request,response){
-    response.render("lk/privatedata.hbs")
-}); 
-
 
 
 module.exports = router;

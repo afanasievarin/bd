@@ -63,6 +63,18 @@ async function findUser(req,res,next){
     }
 }
 
+function compareAsync(param1, param2) {
+    return new Promise(function(resolve, reject) {
+        bcrypt.compare(param1, param2, function(err, res) {
+            if (err) {
+                 reject(err);
+            } else {
+                 resolve(res);
+            }
+        });
+    });
+}
+
 async function searchAdmins(user){
     var data = await pool.execute(`
     SELECT * 
@@ -73,10 +85,12 @@ async function searchAdmins(user){
     .catch((err)=>{
         console.log(err);
     })
-    if(data[0][0] && bcrypt.compare(user.password, data[0][0].adminpassword))
+    console.log(data[0]);
+    if(data[0][0] && await compareAsync(user.password, data[0][0].adminpassword))
     {
         var temp = {
             role:"2",
+            id: data[0][0].adminID,
             login: data[0][0].adminlogin
         }
         fakeToken = temp;
@@ -94,10 +108,12 @@ async function searchWorkers(user){
     .catch((err)=>{
         console.log(err);
     })
-    if(data[0][0] && bcrypt.compare(user.password, data[0][0].workerpassword))
+    console.log(data[0]);
+    if(data[0][0] && await compareAsync(user.password, data[0][0].workerpassword))
     {
         var temp = {
             role:"1",
+            id: data[0][0].workerID,
             login: data[0][0].workerlogin
         }
         fakeToken = temp;
@@ -115,10 +131,12 @@ async function searchUsers(user){
     .catch((err)=>{
         console.log(err);
     })
-    if(data[0][0] && bcrypt.compare(user.password, data[0][0].userpassword))
+    console.log(data[0]);
+    if(data[0][0] && await compareAsync(user.password, data[0][0].userpassword))
     {
         var temp = {
             role:"0",
+            id: data[0][0].userID,
             login: data[0][0].userlogin
         }
         fakeToken = temp;
@@ -128,7 +146,7 @@ async function searchUsers(user){
 }
 
 async function genToken(user){
-    const token = jwt.sign({ role: user.role, login: user.login },key,{ expiresIn: "24h"});
+    const token = jwt.sign({ role: user.role, login: user.login, id: user.id },key,{ expiresIn: "24h"});
     return token;
 }
 
