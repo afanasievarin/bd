@@ -4,13 +4,14 @@ body{
     background-origin: content-box;
     background-repeat: no-repeat;
     background-size: cover;
-    min-height: 800px;
+    min-height: 100vh;
 	font-family: 'Ubuntu', sans-serif;
 }
 
 .grid {
     padding-top:200px;
     padding-left: 290px;
+    margin-bottom: 20%;
     /*рисуем зелёные рамки*/
     /*border: 5px solid #ffffff;*/
     /*подключаем сетку*/
