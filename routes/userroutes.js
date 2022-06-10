@@ -1,7 +1,7 @@
 const express = require("express");
-const { verifyToken } = require("../classes/login.js");
 const router = express.Router();
 const {getUserByID, updateUserForID} = require("../classes/user.js");
+const {verifyToken, checkIfAdmin, checkIfWorker} = require("../classes/login.js");
 var bodyParser = require('body-parser');
 var jsonParser = bodyParser.json();
 

@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 var bodyParser = require('body-parser');
-const {createUser, findUser, genToken, checkIfNoAdmins} = require("../classes/login.js");
+const {createUser, findUser, genToken, checkIfNoAdmins, checkIfAdmin, checkIfWorker} = require("../classes/login.js");
 var jsonParser = bodyParser.json();
 
 router.get("/signin", function(_,response){

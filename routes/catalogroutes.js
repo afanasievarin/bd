@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const {getItems, getItemByID,getItemsUpdateData,createItem,updateItem,deleteParameterForID,editParameters} = require("../classes/catalog.js");
+const {verifyToken, checkIfAdmin, checkIfWorker} = require("../classes/login.js");
 var bodyParser = require('body-parser');
 var jsonParser = bodyParser.json();
 
