@@ -80,7 +80,7 @@ async function getCartItemsByOrderID(orderID){
         ON orders.workerID = workers.workerID
         LEFT JOIN orderstatuses
         ON orders.orderstatusID = orderstatuses.orderstatusID
-        WHERE orders.workerID = "${token.ID}" AND orderstatuses.orderstatusID is not null
+        WHERE orders.workerID = "${token.id}" AND orderstatuses.orderstatusID is not null
         `)
         .catch((err)=>{
             console.log(err);
@@ -95,7 +95,7 @@ async function getCartItemsByOrderID(orderID){
         ON orders.workerID = workers.workerID
         LEFT JOIN orderstatuses
         ON orders.orderstatusID = orderstatuses.orderstatusID
-        WHERE users.userID = "${token.ID}" AND orderstatuses.orderstatusID is not null
+        WHERE users.userID = "${token.id}" AND orderstatuses.orderstatusID is not null
         `)
         .catch((err)=>{
             console.log(err);
@@ -105,8 +105,8 @@ async function getCartItemsByOrderID(orderID){
 
   async function getOrderByID(id){
     var order = await pool.execute(`
-    SELECT *
-    FROM orders
+        SELECT *
+        FROM orders
         LEFT JOIN users
         ON orders.userID = users.userID
         LEFT JOIN workers
@@ -138,4 +138,36 @@ async function getCartItemsByOrderID(orderID){
     })
     return {order: order[0][0], items: items[0]}
   }
-module.exports = {getCartItemsByOrderID,submitOrder,deleteOrderItem,getOrdersByUserToken,getOrderByID};
+  
+async function getOrderStatusesWithout(id){
+    var statuses = await pool.execute(`
+        SELECT * 
+        FROM orderstatuses
+        WHERE orderstatusID != "${id}"
+    `)
+    .catch((err)=>{
+        console.log(err);
+    })
+    return statuses[0];
+}
+
+async function updateOrder(data){
+    var result;
+    await pool.execute(`
+        UPDATE orders
+        SET 
+        orderstatusID = "${data.orderstatusID}",
+        workerID = "${data.workerID}"
+        WHERE orderID = "${data.ID}"
+        LIMIT 1
+    `)
+    .then(()=>{
+        result = true;
+    })
+    .catch((err)=>{
+        console.log(err);
+        result = false;
+    });
+    return result;
+}
+module.exports = {getCartItemsByOrderID,submitOrder,deleteOrderItem,getOrdersByUserToken,getOrderByID,getOrderStatusesWithout,updateOrder};

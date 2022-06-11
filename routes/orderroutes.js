@@ -1,8 +1,9 @@
 const express = require("express");
 const router = express.Router();
-const {getCartItemsByOrderID,submitOrder,deleteOrderItem,getOrdersByUserToken,getOrderByID} = require("../classes/order.js");
+const {getCartItemsByOrderID,submitOrder,deleteOrderItem,getOrdersByUserToken,getOrderByID, getOrderStatusesWithout,updateOrder} = require("../classes/order.js");
 const {findEmptyOrder,findEmptyContract} = require("../classes/catalog.js");
 const {verifyToken, checkIfAdmin, checkIfWorker} = require("../classes/login.js");
+const {getWorkersWithout} = require("../classes/worker.js");
 var bodyParser = require('body-parser');
 var jsonParser = bodyParser.json();
 
@@ -29,15 +30,24 @@ router.post("/shopcart/delete/order",jsonParser, async function(request,response
     else response.sendStatus(200);
 });
 
-router.get("/orders",verifyToken,checkIfWorker, async function(request,response){
+router.get("/orders",verifyToken, async function(request,response){
     var orders = await getOrdersByUserToken(request.fakeToken);
     response.render("orders/orders.hbs",{orders: orders,token: request.fakeToken})
 });
 
-router.get("/orders/order/:id",verifyToken,checkIfWorker, async function(request,response){
+router.get("/orders/order/:id",verifyToken, async function(request,response){
     var data = await getOrderByID(request.params.id);
-    console.log(data.items);
-    response.render("orders/orderinfo.hbs",{order:data.order, items: data.items, token: request.fakeToken})
+    var workers = await getWorkersWithout(data.order.workerID);
+    var statuses = await getOrderStatusesWithout(data.order.orderstatusID)
+    console.log(data.order);
+    var attribute = "";
+    if(request.fakeToken.role == 0) attribute = "readonly disabled";
+    response.render("orders/orderinfo.hbs",{order:data.order,workers:workers, orderstatuses:statuses ,items: data.items,attribute:attribute, token: request.fakeToken})
+});
+
+router.post("/order/update", jsonParser, async function(request,response){
+    if(!request.body || !await updateOrder(request.body)) response.sendStatus(400);
+    else response.sendStatus(200);
 });
 
 module.exports = router;

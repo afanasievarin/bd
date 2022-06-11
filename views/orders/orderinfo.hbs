@@ -10,42 +10,72 @@
 		<header class="headernotmain">		
 			{{> navigationbar token=token}}
 		</header>
-        <a href="/roparameters"><button class="upbtn">Редактировать параметры</button></a>
+        {{#isGreater token.role "0"}}<a href="/roparameters"><button class="upbtn">Редактировать параметры</button></a>{{/isGreater}}
 		<div class="maininfo">
-			<input hidden id="id" value="{{user.userID}}">
-			<table>
-				<caption><b>Информация о заказе:</b></caption>
-				<tr>
-					<td>Фамилия заказчика:</td>
-					<td><input name="input" value="{{user.usersurname}} {{user.username}} {{user.usermidname}}"></td>
-				</tr>
-				<tr>
-					<td>ID работника:</td>
-					<td><input name="input" value="{{worker.workerID}}"></td>
-				</tr>
-				<tr>
-					<td>ФИО работника:</td>
-					<td><input name="input" value="{{worker.workersurname}} {{worker.workername}} {{worker.workermidname}}"></td>
-				</tr>
-				<tr>
-					<td>Дата заказа:</td>
-					<td><input name="input" value="{{order.orderdate}}"></td>
-				</tr>
-				<tr>
-					<td>Дата заказа:</td>
-					<td><input name="input" value="{{order.orderdate}}"></td>
-				</tr>
-				<tr>
-					<td>Дата заказа:</td>
-					<td><input name="input" value="{{order.orderdate}}"></td>
-				</tr>
-			</table>
-		</div>   
-		<button class="upbtn1" id="update-button">Сохранить</button> 
+					<input hidden id="id" value="{{user.userID}}">
+					<table>
+						<caption><b>Информация о заказе:</b></caption>
+						<tr>
+							<td>ФИО заказчика:</td>
+							<td><input readonly name="input" value="{{order.usersurname}} {{order.username}} {{order.usermidname}}"></td>
+						</tr>
+						<tr>
+							<td>Логин заказчика:</td>
+							<td><input readonly name="input" value="{{order.usersurname}}"></td>
+						</tr>
+                        <tr>
+							<td>ФИО работника:</td>
+							<td>
+								<select {{attribute}} name="input" id="worker">
+									<option value = "{{order.workerID}}">{{order.workersurname}} {{order.workername}} {{order.workermidname}}</option>
+								{{#isGreater token.role "1"}}
+                                {{#each workers}}
+                                    <option value = "{{this.workerID}}">{{this.workersurname}} {{this.workername}} {{this.workermidname}}</option>
+                                {{/each}}
+								{{/isGreater}}
+                            	</select>
+							</td>
+						</tr>
+						<tr>
+							<td>Статус:</td>
+							<td>
+								<select {{attribute}} name="input" id="status">
+									<option value = "{{order.orderstatusID}}">{{order.orderstatusname}}</option>
+                                {{#each orderstatuses}}
+                                    <option value = "{{this.orderstatusID}}">{{this.orderstatusname}}</option>
+                                {{/each}}
+                            	</select>
+							</td>
+						</tr>
+                        <tr>
+							<td>Дата заказа:</td>
+							<td><input readonly  type="date" name="input" value="{{order.orderdate}}"></td>
+						</tr>
+					</table>
+				</div>  
+		{{#isGreater token.role "0"}}<button class="upbtn1" id="update-btn" value="{{order.orderID}}">Сохранить</button>  {{/isGreater}}
         <div class="item">
             {{#each items}}
-                {{> iteminshopcart item=this}} 
+                {{> iteminshopcart item=this token=../token}} 
             {{/each}}
         </div> 		
 	</body>
 </html>
+<script>
+	var btn = document.getElementById("update-btn");
+	if(btn)
+	btn.onclick = async function(){
+		var data = {
+			ID: btn.value,
+			workerID: document.getElementById("worker").value,
+			orderstatusID: document.getElementById("status").value
+		}
+		const response = await fetch('/order/update', {
+            method: 'post',
+            body: JSON.stringify(data),
+            headers: {'Content-Type': 'application/json'}
+        });
+		if(response.status == 400){alert("Ошибка при обновлении");return;}
+		alert("Запись успешно обновлена");
+	}
+</script>
