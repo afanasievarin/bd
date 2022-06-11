@@ -12,7 +12,7 @@
     </header>
     <div class="container products__container">
         <ul class="imdiz-products_row">
-            {{> emptyitem}}
+            {{#isGreater token.role "0"}}{{> emptyitem}}{{/isGreater}}
             {{#each items}}
                 {{> item item=this token=../token}} 
             {{/each}}
@@ -23,6 +23,7 @@
 
 <script>
     var btn = document.getElementById("order-btn");
+    if(btn)
     btn.onclick = async function(){
         var id = btn.value;
         var data ={ID: id};

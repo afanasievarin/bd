@@ -11,7 +11,7 @@
         </header>
         <div class="container products__container">
             <ul class="imdiz-products_row">
-            {{> emptyworker}}
+            {{#isGreater token.role "1"}}{{> emptyworker}}{{/isGreater}}
             {{#each workers}}
             {{> worker worker=this token=../token}} 
             {{/each}}

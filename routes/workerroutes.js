@@ -17,7 +17,7 @@ router.get("/workers/worker/:id",verifyToken,checkIfAdmin, async function(reques
 
 router.get("/worker",verifyToken,checkIfWorker, async function(request,response){
     var worker = await getWorkerByID(request.fakeToken.id);
-    response.render("workers/worker.hbs", {worker: worker[0],token: request.fakeToken});
+    response.render("workers/worker.hbs", {worker: worker[0],token: request.fakeToken, attribute:"readonly"});
 });
 
 router.get("/worker/create",verifyToken,checkIfWorker, async function(request,response){

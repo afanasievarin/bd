@@ -23,13 +23,15 @@
     <div>
         <p><center>Стоимость:</center></p>
         <span><center><b>{{item.itemprice}}</b></center></span>
+        {{#isEquals token.role "0"}}
         <form class="imdiz-product__buy-form">
             <input type="hidden">
-            <p><button type="submit" class="imdiz-product__submit">{{btnname}}</button></p>
+            <p><button type="submit" id="order-btn" value="{{item.itemID}}" class="imdiz-product__submit">{{btnname}}</button></p>
         </form>
+        {{/isEquals}}
     </div>
 </div>
 <!--<div class="itemdescription">
     <p class="outline">{{item.itemdescription}}</p>
 </div>-->
-<a href="/items/update/{{item.itemID}}"><button class="upbtn">Редактировать запись</button></a>
+{{#isGreater token.role "0"}}<a href="/items/update/{{item.itemID}}"><button class="upbtn">Редактировать запись</button></a>{{/isGreater}}
