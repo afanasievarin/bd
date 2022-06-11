@@ -55,12 +55,11 @@ button {
     text-align: center;
     text-decoration: none;
     cursor: pointer;
-    font-size: 12px;
+    font-size: 15px;
     font-family: "Ubuntu", sans;
-    margin-top: 10%;
-    margin-left: 69%;
-    margin-bottom: 5%;
-    border-radius: 10px;
-    background-color: #0027d4;
+    margin-top: auto;
+    margin-left: 77%;
+    border-radius: 5px;
+    background: linear-gradient(rgba(35, 41, 214, 0.8), rgba(130, 35, 177, 0.4));
     color: rgb(255, 255, 255);
 }

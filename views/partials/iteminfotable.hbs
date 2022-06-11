@@ -14,7 +14,9 @@
     <div></div>
     <table>
         <tr><td colspan="2" style="text-align:center">Описание:</td></tr>
-        <tr><td colspan="2" style="text-align:center">{{item.itemdescription}}</td></tr>
+        <tr><td colspan="2" style="text-align:center">
+            <textarea oninput="auto_grow(this)" id="description" class="teaxtarea-element" type="text" required="">{{item.itemdescription}}</textarea>
+        </td></tr>        
     </table>
     <div></div>
     <div class="invisibleblock"></div>
@@ -26,5 +28,8 @@
             <p><button type="submit" class="imdiz-product__submit">{{btnname}}</button></p>
         </form>
     </div>
-     <a href="/items/update/{{item.itemID}}"><button>Редактировать запись</button></a>
 </div>
+<!--<div class="itemdescription">
+    <p class="outline">{{item.itemdescription}}</p>
+</div>-->
+<a href="/items/update/{{item.itemID}}"><button class="upbtn">Редактировать запись</button></a>
