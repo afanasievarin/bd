@@ -153,4 +153,72 @@ async function getContractItemsByContractID(contractID){
             })
         return contracts[0];
       }
-module.exports = {getRentableItems, getItemByID,getContractItemsByContractID, submitContract,deleteContractItem, getContractsByUserToken};
+
+      async function getContractByID(id){
+        var contract = await pool.execute(`
+            SELECT *
+            FROM contracts
+            LEFT JOIN users
+            ON contracts.userID = users.userID
+            LEFT JOIN workers
+            ON contracts.workerID = workers.workerID
+            LEFT JOIN contractstatuses
+            ON contracts.contractstatusID = contractstatuses.contractstatusID
+            WHERE contracts.contractID = "${id}"
+            LIMIT 1
+        `)
+        .catch((err)=>{
+            console.log(err);
+        })
+        console.log(id);
+    
+        var items = await pool.execute(`
+            SELECT * FROM items
+            LEFT JOIN categories 
+            ON items.categoryID = categories.categoryID
+            LEFT JOIN itemstatuses 
+            ON items.itemstatusID = itemstatuses.itemstatusID
+            LEFT JOIN itemconditions 
+            ON items.itemconditionID = itemconditions.itemconditionID
+            INNER JOIN contracttoitems
+            ON items.itemID = contracttoitems.itemID
+            WHERE contracttoitems.contractID = "${id}"
+        `)
+        .catch((err)=>{
+            console.log(err);
+        })
+        return {contract: contract[0][0], items: items[0]}
+      }
+      
+    async function getContractStatusesWithout(id){
+        var statuses = await pool.execute(`
+            SELECT * 
+            FROM contractstatuses
+            WHERE contractstatusID != "${id}"
+        `)
+        .catch((err)=>{
+            console.log(err);
+        })
+        return statuses[0];
+    }
+    
+    async function updateContract(data){
+        var result;
+        await pool.execute(`
+            UPDATE contracts
+            SET 
+            contractstatusID = "${data.contractstatusID}",
+            workerID = "${data.workerID}"
+            WHERE contractID = "${data.ID}"
+            LIMIT 1
+        `)
+        .then(()=>{
+            result = true;
+        })
+        .catch((err)=>{
+            console.log(err);
+            result = false;
+        });
+        return result;
+    }
+module.exports = {getRentableItems, getItemByID,getContractItemsByContractID, submitContract,deleteContractItem, getContractsByUserToken,getContractByID,getContractStatusesWithout,updateContract};

@@ -10,39 +10,77 @@
 			{{> navigationbar token=token}}
 		</header>
 
-        <a href="/roparameters"><button class="btn">Редактировать параметры</button></a>
+        {{#isGreater token.role "0"}}<a href="/roparameters"><button class="btn">Редактировать параметры</button></a>{{/isGreater}}
 
 		<div class="data-container">
 			<div class="grid">
 				<div class="maininfo">
 					<input hidden id="id" value="{{user.userID}}">
 					<table>
-						<caption><b>Информация о контракте:</b></caption>
+						<caption><b>Информация о заказе:</b></caption>
 						<tr>
-							<td>Фамилия заказчика:</td>
-							<td><input name="input" value="{{user.usersurname}} {{user.username}} {{user.usermidname}}"></td>
+							<td>ФИО заказчика:</td>
+							<td><input readonly name="input" value="{{contract.usersurname}} {{contract.username}} {{contract.usermidname}}"></td>
 						</tr>
 						<tr>
-							<td>ID работника:</td>
-							<td><input name="input" value="{{worker.workerID}}"></td>
+							<td>Логин заказчика:</td>
+							<td><input readonly name="input" value="{{contract.usersurname}}"></td>
 						</tr>
                         <tr>
 							<td>ФИО работника:</td>
-							<td><input name="input" value="{{worker.workersurname}} {{worker.workername}} {{worker.workermidname}}"></td>
+							<td>
+								<select {{attribute}} name="input" id="worker">
+									<option value = "{{contract.workerID}}">{{contract.workersurname}} {{contract.workername}} {{contract.workermidname}}</option>
+								{{#isGreater token.role "1"}}
+                                {{#each workers}}
+                                    <option value = "{{this.workerID}}">{{this.workersurname}} {{this.workername}} {{this.workermidname}}</option>
+                                {{/each}}
+								{{/isGreater}}
+                            	</select>
+							</td>
+						</tr>
+						<tr>
+							<td>Статус:</td>
+							<td>
+								<select {{attribute}} name="input" id="status">
+									<option value = "{{contract.contractstatusID}}">{{contract.contractstatusname}}</option>
+                                {{#each contractstatuses}}
+                                    <option value = "{{this.contractstatusID}}">{{this.contractstatusname}}</option>
+                                {{/each}}
+                            	</select>
+							</td>
 						</tr>
                         <tr>
-							<td>Дата контракта:</td>
-							<td><input name="input" value="{{contract.contractdate}}"></td>
+							<td>Дата заказа:</td>
+							<td><input readonly  type="date" name="input" value="{{order.orderdate}}"></td>
 						</tr>
 					</table>
 				</div>
 			</div>    
         <div class="item">
             {{#each items}}
-                {{> iteminshopcart item=this}} 
+                {{> iteminshopcart item=this token=../token}} 
             {{/each}}
         </div>
-		<button id="update-button">Сохранить</button>         
+		{{#isGreater token.role "0"}}<button id="update-btn" value="{{contract.contractID}}">Сохранить</button>{{/isGreater}}     
 		</div>  		
 	</body>
 </html>
+<script>
+	var btn = document.getElementById("update-btn");
+	if(btn)
+	btn.onclick = async function(){
+		var data = {
+			ID: btn.value,
+			workerID: document.getElementById("worker").value,
+			contractstatusID: document.getElementById("status").value
+		}
+		const response = await fetch('/contract/update', {
+            method: 'post',
+            body: JSON.stringify(data),
+            headers: {'Content-Type': 'application/json'}
+        });
+		if(response.status == 400){alert("Ошибка при обновлении");return;}
+		alert("Запись успешно обновлена");
+	}
+</script>
