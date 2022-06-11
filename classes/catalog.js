@@ -116,7 +116,8 @@ async function updateItem(data){
 async function deleteParameterForID(type,id){
     var result;
     var table =type;
-    if(table ==="category") table = "categorie"
+    if(table ==="category") table = "categorie";
+    if(table ==="status") table = "statuse";
     await pool.execute(`
         DELETE 
         FROM ${table}s
@@ -226,6 +227,16 @@ async function deleteParameterForID(type,id){
       })
   }
 
+  async function createContract(userID){
+    await pool.execute(`
+      INSERT contracts(userID)
+      VALUES ("${userID}")
+    `)
+    .catch((err)=>{
+        console.log(err);
+    })
+}
+
   async function findEmptyOrder(userID){
     var data = await pool.execute(`
         SELECT *
@@ -236,9 +247,45 @@ async function deleteParameterForID(type,id){
     .catch(err=>{
         console.log(err);
     });
-    console.log(data[0]);
     return data[0];
   }
+
+  async function findEmptyContract(userID){
+    var data = await pool.execute(`
+        SELECT *
+        FROM contracts
+        WHERE userID = "${userID}" AND contractstatusID is null
+        LIMIT 1
+    `)
+    .catch(err=>{
+        console.log(err);
+    });
+    return data[0];
+  }
+
+  async function addItemToContractByID(id, userID){
+
+    var data = await findEmptyContract(userID);
+    if(!data[0]) 
+    {
+      await createContract(userID);
+      data = await findEmptyContract(userID);
+    }
+
+  var result;
+    result = await pool.execute(`
+      INSERT contracttoitems(contractID, itemID)
+      VALUES ("${data[0].contractID}",${id})
+    `)
+    .then(()=>{
+      result =true;
+    })
+    .catch(err=>{
+        console.log(err);
+        result = false;
+    });
+      return result;
+    };
 
   async function addItemToCartByID(id, userID){
 
@@ -265,4 +312,15 @@ async function deleteParameterForID(type,id){
     };
 
 
-module.exports = {getItems, getItemByID,getItemsUpdateData, createItem,updateItem,deleteParameterForID,editParameters,addItemToCartByID,findEmptyOrder};
+module.exports = {
+  getItems,
+  getItemByID,
+  getItemsUpdateData,
+  createItem,updateItem,
+  deleteParameterForID,
+  editParameters,
+  addItemToCartByID,
+  addItemToContractByID,
+  findEmptyOrder,
+  findEmptyContract
+  };

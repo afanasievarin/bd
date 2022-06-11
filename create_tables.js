@@ -62,8 +62,7 @@ function createTables(){
       //5 договоры
       request[request.length] =`create table if not exists contracts(
         contractID int not null auto_increment,
-        contractdate date not null,
-        contractrentprice int not null,
+        contractdate date null,
         userID int,
         contractstatusID tinyint,
         foreign key(userID) references users(userID),
@@ -107,15 +106,13 @@ function createTables(){
         foreign key(itemconditionID) references itemconditions(itemconditionID),
         primary key(itemID)
       )`;
-      //10 Товары договора
-      request[request.length] =`create table if not exists contractitems(
-        contractitemID int not null auto_increment,
-        contractitemdeadline date not null,
+      //10 Договор/товар
+      request[request.length] =`create table if not exists contracttoitems(
+        contractitemdeadline date null,
         itemID int,
         contractID int,
-        foreign key(itemID) references items(itemID),
-        foreign key(contractID) references contracts(contractID),
-        primary key(contractitemID)
+        foreign key(itemID) references items(itemID) on delete cascade,
+        foreign key(contractID) references contracts(contractID) on delete cascade
       )`;
       //11 Заказ/товар
       request[request.length] =`create table if not exists ordertoitems(

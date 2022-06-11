@@ -19,4 +19,38 @@ async function getCartItemsByOrderID(orderID){
     return items[0];
   };
 
-module.exports = {getCartItemsByOrderID};
+  async function submitOrder(data){
+    var result;
+    await pool.execute(`
+        UPDATE orders
+        SET
+        orderstatusID = "1"
+        WHERE orderID = "${data.ID}"
+    `)
+    .then(()=>{
+        result = true;
+    })
+    .catch((err)=>{
+        console.log(err);
+        result = false;
+    })
+    return result;
+  }
+  async function deleteOrderItem(data){
+    var result;
+    await pool.execute(`
+        DELETE 
+        FROM ordertoitems
+        WHERE orderID="${data.ID}" AND itemID="${data.itemID}"
+        LIMIT 1
+    `)
+    .then(()=>{
+        result =true;
+    })
+    .catch(err=>{
+        console.log(err);
+        result = false;
+    });
+    return result;
+  }
+module.exports = {getCartItemsByOrderID,submitOrder,deleteOrderItem};

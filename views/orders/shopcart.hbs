@@ -14,9 +14,49 @@
                     {{> iteminshopcart item=this}} 
                 {{/each}}
         </div>
+
+        <button name="{{type}}" id="submit" value="{{ID}}">Оформить</button>
     </body>
 </html>
 <script>
+    
+    var btn = document.getElementById("submit");
+    var type = btn.getAttribute("name");
+    var id = btn.value;
+        btn.onclick = async function(){
+        if(!id || id == ""){alert("Ваша корзина пуста"); return;}
+        data = {ID : id};
+        const response = await fetch('/shopcart/create/'+type, {
+            method: 'post',
+            body: JSON.stringify(data),
+            headers: {'Content-Type': 'application/json'}
+        });
+        if(response.status == 400) {alert("Ошибка сервера");return;}
+        alert("Заказ принят на обработку");
+        location.assign("/lk")
+    }
+
+    const deletebuttons = document.querySelectorAll('.deletebtn');
+    deletebuttons.forEach(async function(elem) { 
+    elem.addEventListener("click", async function() {          
+        if(elem.value){
+        var itemid = elem.value;
+        var data = {
+            ID: id,
+            itemID: itemid
+        };
+        const response = await fetch('/shopcart/delete/'+type, {
+            method: 'post',
+            body:JSON.stringify(data),
+            headers: {'Content-Type': 'application/json'}
+        });
+        if (response.status == 400) {alert("Ошибка");return;}
+        }
+        var item = elem.closest(".iteminshopcart");
+        item.remove();
+        }); 
+    }); 
+
     const plusbuttons = document.querySelectorAll('.plusbtn');
     plusbuttons.forEach(function(elem) { 
     elem.addEventListener("click", function() {          
