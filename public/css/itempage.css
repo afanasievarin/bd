@@ -99,11 +99,25 @@ table {
 	outline: none;
     border: 0;
     color: rgb(255, 255, 255);
-	padding:10px 20px;
-	text-transform:uppercase;
-    margin-top: 3%;
+	padding:5px 10px;
+	text-transform:none;
+    margin-top: 1%;
     margin-bottom: 1%;
-    margin-left: 72%;
+    margin-left: 79%;
+	border-radius:2px;
+	cursor:pointer;
+	position:relative;
+}
+.upbtn1{
+    color:rgb(255, 255, 255);
+	background:  rgba(0, 7, 205, 0.4);
+	outline: none;
+    border: 0;
+    color: rgb(255, 255, 255);
+	padding:5px 10px;
+	text-transform:none;
+    margin-bottom: 1%;
+    margin-left: 82%;
 	border-radius:2px;
 	cursor:pointer;
 	position:relative;

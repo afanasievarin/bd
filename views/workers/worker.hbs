@@ -81,9 +81,10 @@
 			</div>
 		{{#isGreater token.role "1"}}
 		{{#if checkCreate}}
-		<button name="create" id="update-button">Создать</button>
+		<button class="upbtn" name="create" id="update-button">Создать</button>
 		{{else}}
-		<button name="update" id="update-button">Сохранить</button>
+		<button class="upbtn1" name="update" id="update-button">Сохранить</button>
+		<button class="upbtn1" name="update" id="update-button">Удалить</button>
 		{{/if}} 
 		{{/isGreater}}
 		</div>		

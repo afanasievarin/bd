@@ -1,9 +1,4 @@
 <div class="grid">
-    <!-- и создаём 16 вложенных элементов -->
-    <!--<div class="image"><img class ="image-fit" src={{item.itemimagepath}}> </div>
-    <div class="itemnameset">
-        <div class="itemset">{{item.itemname}}</div>
-    </div>-->
     <table>
         <caption>О сотруднике:</caption>
         <tr><td>Фамилия:</td><td>{{worker.workersurname}}</td></tr> <!--ряд с ячейками тела таблицы-->
@@ -18,21 +13,4 @@
         <tr><td>Дата выдачи:</td><td>{{worker.workerpassportdate}}</td></tr>
     </table>
     <div></div>
-    <!--<table>
-        <tr><td colspan="2" style="text-align:center">Описание:</td></tr>
-        <tr><td colspan="2" style="text-align:center">
-            <textarea oninput="auto_grow(this)" id="description" class="teaxtarea-element" type="text" required="">{{item.itemdescription}}</textarea>
-        </td></tr>        
-    </table>
-    <div></div>
-    <div class="invisibleblock"></div>
-    <div>
-        <p><center>Стоимость:</center></p>
-        <span><center><b>{{item.itemprice}}</b></center></span>
-        <form class="imdiz-product__buy-form">
-            <input type="hidden">
-            <p><button type="submit" class="imdiz-product__submit">{{btnname}}</button></p>
-        </form>
-    </div>
-</div>-->
 <a href="/items/update/{{item.itemID}}"><button class="upbtn">Редактировать запись</button></a>
