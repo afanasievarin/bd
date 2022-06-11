@@ -4,13 +4,14 @@
 	<meta charset="UTF-8">
 	<link rel="stylesheet" href="/../css/privatedata.css">
     <link rel="stylesheet" href="/../css/style.css">
+	<link rel="stylesheet" href="/../css/iteminshopcart.css">
 </head>
 	<body>	
 		<header class="headernotmain">		
 			{{> navigationbar token=token}}
 		</header>
 
-        <a href="/roparameters"><button class="btn">Редактировать параметры</button></a>
+        <a href="/roparameters"><button class="upbtn">Редактировать параметры</button></a>
 
 		<div class="data-container">
 			<div class="grid">
@@ -42,7 +43,7 @@
                 {{> iteminshopcart item=this}} 
             {{/each}}
         </div>
-		<button id="update-button">Сохранить</button>         
+		<button class="upbtn" id="update-button">Сохранить</button>         
 		</div>  		
 	</body>
 </html>

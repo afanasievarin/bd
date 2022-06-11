@@ -1,6 +1,7 @@
 .item {
+    margin-top: 1%;
     width: 45%;
-    margin: 80px auto;
+    margin-left: 24%;
     background: #FFFFFF;
     box-shadow: 5px 2px 3px 0px #0027d4;
     border-radius: 6px;
@@ -97,16 +98,47 @@ input:focus {
 
 .upbtn{
     color:rgb(255, 255, 255);
-	background: #0027d4;
+	background: #4c6cf9;
 	outline: none;
     border: 0;
     color: rgb(255, 255, 255);
-	padding:10px 20px;
-	text-transform:uppercase;
-    margin-top: auto;
+	padding:5px 10px;
+	text-transform: none;
+    margin-top: 1%;
     margin-bottom: 1%;
     margin-left: 65%;
 	border-radius:6px;
 	cursor:pointer;
 	position:relative;
+}
+
+.upbtn1{
+    color:rgb(255, 255, 255);
+	background: #4c6cf9;
+	outline: none;
+    border: 0;
+    color: rgb(255, 255, 255);
+	padding:5px 10px;
+	text-transform: none;
+    margin-top: 14%;
+    margin-bottom: 1%;
+    margin-left: 28%;
+	border-radius:6px;
+	cursor:pointer;
+	position: absolute;
+}
+
+.maininfo {
+    width: auto;
+    height: auto;
+    float: left;
+    background: #4c6cf9;
+    border: solid 1px grey;
+    position: relative;
+    /*padding-left: 300px;*/
+    left: 500px;
+    top: 55px;
+    border-radius: 10px;
+    padding-right: 1%;
+    padding-bottom: 1%;
 }

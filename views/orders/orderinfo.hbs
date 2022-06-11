@@ -2,47 +2,50 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<link rel="stylesheet" href="/../css/privatedata.css">
+	<!--<link rel="stylesheet" href="/../css/privatedata.css">-->
     <link rel="stylesheet" href="/../css/style.css">
+	<link rel="stylesheet" href="/../css/roparameters.css">
 </head>
 	<body>	
 		<header class="headernotmain">		
 			{{> navigationbar token=token}}
 		</header>
-
-        <a href="/roparameters"><button class="btn">Редактировать параметры</button></a>
-
-		<div class="data-container">
-			<div class="grid">
-				<div class="maininfo">
-					<input hidden id="id" value="{{user.userID}}">
-					<table>
-						<caption><b>Информация о заказе:</b></caption>
-						<tr>
-							<td>Фамилия заказчика:</td>
-							<td><input name="input" value="{{user.usersurname}} {{user.username}} {{user.usermidname}}"></td>
-						</tr>
-						<tr>
-							<td>ID работника:</td>
-							<td><input name="input" value="{{worker.workerID}}"></td>
-						</tr>
-                        <tr>
-							<td>ФИО работника:</td>
-							<td><input name="input" value="{{worker.workersurname}} {{worker.workername}} {{worker.workermidname}}"></td>
-						</tr>
-                        <tr>
-							<td>Дата заказа:</td>
-							<td><input name="input" value="{{order.orderdate}}"></td>
-						</tr>
-					</table>
-				</div>
-			</div>    
+        <a href="/roparameters"><button class="upbtn">Редактировать параметры</button></a>
+		<div class="maininfo">
+			<input hidden id="id" value="{{user.userID}}">
+			<table>
+				<caption><b>Информация о заказе:</b></caption>
+				<tr>
+					<td>Фамилия заказчика:</td>
+					<td><input name="input" value="{{user.usersurname}} {{user.username}} {{user.usermidname}}"></td>
+				</tr>
+				<tr>
+					<td>ID работника:</td>
+					<td><input name="input" value="{{worker.workerID}}"></td>
+				</tr>
+				<tr>
+					<td>ФИО работника:</td>
+					<td><input name="input" value="{{worker.workersurname}} {{worker.workername}} {{worker.workermidname}}"></td>
+				</tr>
+				<tr>
+					<td>Дата заказа:</td>
+					<td><input name="input" value="{{order.orderdate}}"></td>
+				</tr>
+				<tr>
+					<td>Дата заказа:</td>
+					<td><input name="input" value="{{order.orderdate}}"></td>
+				</tr>
+				<tr>
+					<td>Дата заказа:</td>
+					<td><input name="input" value="{{order.orderdate}}"></td>
+				</tr>
+			</table>
+		</div>   
+		<button class="upbtn1" id="update-button">Сохранить</button> 
         <div class="item">
             {{#each items}}
                 {{> iteminshopcart item=this}} 
             {{/each}}
-        </div>
-		<button id="update-button">Сохранить</button>         
-		</div>  		
+        </div> 		
 	</body>
 </html>
