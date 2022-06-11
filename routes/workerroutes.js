@@ -20,7 +20,7 @@ router.get("/worker",verifyToken,checkIfWorker, async function(request,response)
     response.render("workers/worker.hbs", {worker: worker[0],token: request.fakeToken, attribute:"readonly"});
 });
 
-router.get("/worker/create",verifyToken,checkIfWorker, async function(request,response){
+router.get("/worker/create",verifyToken,checkIfAdmin, async function(request,response){
     const create = "True";
     response.render("workers/worker.hbs", {token: request.fakeToken, checkCreate: create});
 });
