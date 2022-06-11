@@ -21,10 +21,13 @@ async function getCartItemsByOrderID(orderID){
 
   async function submitOrder(data){
     var result;
+    var temp = new Date();
+    var date = temp.getFullYear()+"-"+temp.getMonth()+"-"+temp.getDate();
     await pool.execute(`
         UPDATE orders
         SET
-        orderstatusID = "1"
+        orderstatusID = "1",
+        orderdate = "${date}"
         WHERE orderID = "${data.ID}"
     `)
     .then(()=>{

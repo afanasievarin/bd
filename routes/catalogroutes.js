@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const {getItems, getItemByID,getItemsUpdateData,createItem,updateItem,deleteParameterForID,editParameters,addItemToCartByID,addItemToContractByID} = require("../classes/catalog.js");
+const {getItems, getItemByID,getItemsUpdateData,createItem,updateItem,deleteParameterForID,editParameters,addItemToCartByID,addItemToContractByID,deleteItemByID} = require("../classes/catalog.js");
 const {verifyToken, checkIfAdmin, checkIfWorker} = require("../classes/login.js");
 var bodyParser = require('body-parser');
 var jsonParser = bodyParser.json();
@@ -61,6 +61,15 @@ router.post("/catalog/addtocart", jsonParser,verifyToken, async function(request
 
 router.post("/rent/addtocart", jsonParser,verifyToken, async function(request,response){
   if(!request.body || ! await addItemToContractByID(request.body.ID, request.fakeToken.id)) response.sendStatus(400);
+  else response.sendStatus(200);
+});
+
+router.post("/rent/delete",jsonParser,async function(request,response){
+  if(!request.body || ! await deleteItemByID(request.body.ID)) response.sendStatus(400);
+  else response.sendStatus(200);
+});
+router.post("/catalog/delete",jsonParser,async function(request,response){
+  if(!request.body || ! await deleteItemByID(request.body.ID)) response.sendStatus(400);
   else response.sendStatus(200);
 });
 

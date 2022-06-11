@@ -88,5 +88,17 @@ async function createWorker(data){
 console.log(result);
 return result;
 }
-
-module.exports = {getWorkerByID,getWorkers,updateWorkerByID,createWorker,getWorkersWithout};
+async function deleteWorkerByID(ID){
+    var result = true;
+    await pool.execute(`
+    DELETE
+    FROM workers
+    WHERE workerID = "${ID}"
+    `)
+    .catch((err)=>{
+        console.log(err);
+        result = false;
+    });
+    return result;
+}
+module.exports = {getWorkerByID,getWorkers,updateWorkerByID,createWorker,getWorkersWithout,deleteWorkerByID};

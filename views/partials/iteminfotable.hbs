@@ -31,5 +31,5 @@
         {{/isEquals}}
     </div>
 </div>
-{{#isGreater token.role "0"}}<a href="/items/update/{{item.itemID}}"><button class="upbtn">Редактировать запись</button></a>{{/isGreater}}
-{{#isGreater token.role "0"}}<a href="/items/update/{{item.itemID}}"><button class="upbtn1">Удалить запись</button></a>{{/isGreater}}
+{{#isGreater token.role "0"}}<a href="/items/update/{{item.itemID}}"><button class="upbtn" id="">Редактировать запись</button></a>{{/isGreater}}
+{{#isGreater token.role "0"}}<button class="upbtn1" value="{{item.itemID}}" id="delete-btn">Удалить запись</button>{{/isGreater}}

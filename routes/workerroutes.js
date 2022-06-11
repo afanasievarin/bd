@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const {getWorkerByID, updateWorkerByID, getWorkers, createWorker} = require("../classes/worker.js");
+const {getWorkerByID, updateWorkerByID, getWorkers, createWorker,deleteWorkerByID} = require("../classes/worker.js");
 const {verifyToken, checkIfAdmin, checkIfWorker} = require("../classes/login.js");
 var bodyParser = require('body-parser');
 var jsonParser = bodyParser.json();
@@ -35,4 +35,8 @@ router.post("/workers/worker/create", jsonParser, async function(request,respons
     else response.sendStatus(200);
   });
 
+router.post("/workers/worker/delete",jsonParser,async function(request,response){
+    if(!request.body || !await deleteWorkerByID(request.body.ID)) response.sendStatus(400);
+    else response.sendStatus(200);
+});
 module.exports = router;

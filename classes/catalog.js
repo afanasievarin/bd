@@ -311,6 +311,19 @@ async function deleteParameterForID(type,id){
       return result;
     };
 
+    async function deleteItemByID(ID){
+      var result = true;
+      await pool.execute(`
+      DELETE
+      FROM items
+      WHERE itemID = "${ID}"
+      `)
+      .catch((err)=>{
+          console.log(err);
+          result = false;
+      });
+      return result;
+  }
 
 module.exports = {
   getItems,
@@ -322,5 +335,6 @@ module.exports = {
   addItemToCartByID,
   addItemToContractByID,
   findEmptyOrder,
-  findEmptyContract
+  findEmptyContract,
+  deleteItemByID
   };

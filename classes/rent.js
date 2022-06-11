@@ -70,10 +70,13 @@ async function getContractItemsByContractID(contractID){
 
   async function submitContract(data){
     var result;
+    var temp = new Date();
+    var date = temp.getFullYear()+"-"+temp.getMonth()+"-"+temp.getDate();
     await pool.execute(`
         UPDATE contracts
         SET
-        contractstatusID = "1"
+        contractstatusID = "1",
+        contractdate = "${date}"
         WHERE contractID = "${data.ID}"
     `)
     .then(()=>{

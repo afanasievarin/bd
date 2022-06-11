@@ -26,4 +26,21 @@ if(btn)
             headers: {'Content-Type': 'application/json'}
         });
     }
+    var del = document.getElementById("delete-btn");
+    if(del)
+    del.onclick = async function(){
+        var id = del.value;
+        var data ={ID: id};
+        const response = await fetch('/rent/delete', {
+            method: 'post',
+            body: JSON.stringify(data),
+            headers: {'Content-Type': 'application/json'}
+        });
+        if(response.status == 400) alert("Ошибка сервера");
+        else 
+        {
+            alert("Запись успешно удалена");
+            location.assign("/rent");
+        }
+    }
 </script>

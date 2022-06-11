@@ -81,16 +81,32 @@
 			</div>
 		{{#isGreater token.role "1"}}
 		{{#if checkCreate}}
-		<button class="upbtn" name="create" id="update-button">Создать</button>
+		<button class="upbtn1" name="create" id="update-button">Создать</button>
 		{{else}}
 		<button class="upbtn1" name="update" id="update-button">Сохранить</button>
-		<button class="upbtn1" name="update" id="update-button">Удалить</button>
+		<button class="upbtn1" name="update" value="{{worker.workerID}}" id="delete-button">Удалить</button>
 		{{/if}} 
 		{{/isGreater}}
 		</div>		
 	</body>
 </html>
 <script>
+	var dlt = document.getElementById('delete-button');
+	if(dlt)
+	dlt.onclick = async function(){
+		var data = {ID: dlt.value}
+		const response = await fetch('/workers/worker/delete', {
+            method: 'post',
+            body: JSON.stringify(data),
+            headers: {'Content-Type': 'application/json'}
+        });
+		if(response.status == 200) 
+		{
+			alert("Запись успешно удалена");
+			location.assign("/workers");
+		}
+		else alert("Ошибка при удалении записи");
+	};
 	if(document.getElementById('update-button'))
 	document.getElementById('update-button').onclick = async function(){
         var psw = document.getElementById('password');

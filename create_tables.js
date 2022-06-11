@@ -48,9 +48,9 @@ async function createTables(){
         workerID tinyint null,
         userID int not null,
         orderstatusID tinyint null,
-        foreign key(workerID) references workers(workerID),
+        foreign key(workerID) references workers(workerID) on delete set null,
         foreign key(userID) references users(userID) on delete cascade,
-        foreign key(orderstatusID) references orderstatuses(orderstatusID),
+        foreign key(orderstatusID) references orderstatuses(orderstatusID) on delete set null,
         primary key(orderID)        
         )`;
       //4 статус договора
@@ -66,9 +66,9 @@ async function createTables(){
         userID int,
         workerID tinyint,
         contractstatusID tinyint,
-        foreign key(userID) references users(userID),
-        foreign key(contractstatusID) references contractstatuses(contractstatusID),
-        foreign key(workerID) references workers(workerID),
+        foreign key(userID) references users(userID) on delete cascade,
+        foreign key(contractstatusID) references contractstatuses(contractstatusID) on delete set null,
+        foreign key(workerID) references workers(workerID) on delete set null,
         primary key(contractID)
       )`;
       //6 Статус товара
@@ -103,14 +103,13 @@ async function createTables(){
         categoryID tinyint,
         itemstatusID tinyint,
         itemconditionID tinyint,
-        foreign key(categoryID) references categories(categoryID),
-        foreign key(itemstatusID) references itemstatuses(itemstatusID),
-        foreign key(itemconditionID) references itemconditions(itemconditionID),
+        foreign key(categoryID) references categories(categoryID) on delete set null,
+        foreign key(itemstatusID) references itemstatuses(itemstatusID) on delete set null,
+        foreign key(itemconditionID) references itemconditions(itemconditionID) on delete set null,
         primary key(itemID)
       )`;
       //10 Договор/товар
       request[request.length] =`create table if not exists contracttoitems(
-        contractitemdeadline date null,
         itemID int,
         contractID int,
         foreign key(itemID) references items(itemID) on delete cascade,
@@ -120,10 +119,10 @@ async function createTables(){
       request[request.length] =`create table if not exists ordertoitems(
         orderID int,
         itemID int,
-        itemcount tinyint default 1,
-        foreign key(orderID) references orders(orderID),
-        foreign key(itemID) references items(itemID)
+        foreign key(orderID) references orders(orderID) on delete cascade,
+        foreign key(itemID) references items(itemID) on delete cascade
       )`;
+      /*
       //12 Поставщик
       request[request.length] =`create table if not exists providers(
         providerID tinyint not null auto_increment,
@@ -150,6 +149,7 @@ async function createTables(){
         foreign key(supplyID) references supplies(supplyID),
         foreign key(itemID) references items(itemID)
       )`;
+        */
       //15 Админы
       request[request.length] =`create table if not exists admins(
         adminID int not null auto_increment,  
