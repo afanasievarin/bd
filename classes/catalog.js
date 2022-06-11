@@ -117,7 +117,7 @@ async function deleteParameterForID(type,id){
     var result;
     var table =type;
     if(table ==="category") table = "categorie";
-    if(table ==="status") table = "statuse";
+    if(table ==="itemstatus") table = "itemstatuse";
     await pool.execute(`
         DELETE 
         FROM ${table}s
