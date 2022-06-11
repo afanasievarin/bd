@@ -1,7 +1,8 @@
 const express = require("express");
 const router = express.Router();
-const {getRentableItems, getItemByID,getContractItemsByContractID,submitContract,deleteContractItem, getContractsByUserToken} = require("../classes/rent.js");
+const {getRentableItems, getItemByID,getContractItemsByContractID,submitContract,deleteContractItem, getContractsByUserToken,getContractByID,getContractStatusesWithout,updateContract} = require("../classes/rent.js");
 const {findEmptyContract} = require("../classes/catalog.js");
+const {getWorkersWithout} = require("../classes/worker.js")
 const {verifyToken, checkIfAdmin, checkIfWorker} = require("../classes/login.js");
 var bodyParser = require('body-parser');
 const { request } = require("express");
@@ -41,9 +42,23 @@ router.post("/shopcart/delete/contract",jsonParser, async function(request,respo
   else response.sendStatus(200);
 });
 
-router.get("/contracts",verifyToken,checkIfWorker, async function(request,response){
+router.get("/contracts",verifyToken, async function(request,response){
     var contracts = await getContractsByUserToken(request.fakeToken);
     response.render("contracts/contracts.hbs",{contracts: contracts,token: request.fakeToken})
+});
+
+router.get("/contracts/contract/:id",verifyToken, async function(request,response){
+  var data = await getContractByID(request.params.id);
+  var workers = await getWorkersWithout(data.contract.workerID);
+  var statuses = await getContractStatusesWithout(data.contract.contractstatusID)
+  var attribute = "";
+  if(request.fakeToken.role == 0) attribute = "readonly disabled";
+  response.render("contracts/contractinfo.hbs",{contract:data.contract,workers:workers,contractstatuses:statuses ,items: data.items,attribute:attribute, token: request.fakeToken})
+});
+
+router.post("/contract/update", jsonParser, async function(request,response){
+  if(!request.body || !await updateContract(request.body)) response.sendStatus(400);
+  else response.sendStatus(200);
 });
 
 module.exports = router;

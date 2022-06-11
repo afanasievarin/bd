@@ -39,7 +39,6 @@ router.get("/orders/order/:id",verifyToken, async function(request,response){
     var data = await getOrderByID(request.params.id);
     var workers = await getWorkersWithout(data.order.workerID);
     var statuses = await getOrderStatusesWithout(data.order.orderstatusID)
-    console.log(data.order);
     var attribute = "";
     if(request.fakeToken.role == 0) attribute = "readonly disabled";
     response.render("orders/orderinfo.hbs",{order:data.order,workers:workers, orderstatuses:statuses ,items: data.items,attribute:attribute, token: request.fakeToken})
