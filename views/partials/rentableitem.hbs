@@ -16,9 +16,11 @@
             </p>
 
         </div>
+        {{#isEquals token.role "0"}}
         <form class="imdiz-product__buy-form">
             <input type="hidden">
             <button type="submit" id="rent-btn" class="imdiz-product__submit" value="{{item.itemID}}">Арендовать</button>
         </form>
+        {{/isEquals}}
     </div>
 </li>
