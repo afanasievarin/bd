@@ -53,4 +53,41 @@ async function getCartItemsByOrderID(orderID){
     });
     return result;
   }
-module.exports = {getCartItemsByOrderID,submitOrder,deleteOrderItem};
+  async function getOrdersByUserToken(token){
+    var orders;
+    if(token.role == "2")
+        orders = await pool.execute(`
+        SELECT *
+        FROM orders
+        LEFT JOIN users
+        ON orders.userID = users.userID
+        LEFT JOIN workers
+        ON orders.workerID = workers.workerID
+        LEFT JOIN orderstatuses
+        ON orders.orderstatusID = orderstatuses.orderstatusID
+        WHERE orders.orderstatusID is not null
+        `)
+        .catch((err)=>{
+            console.log(err);
+        })
+    else if(token.role == "1")
+        orders = await pool.execute(`
+        SELECT *
+        FROM orders
+        WHERE workerID = "${token.ID}"
+        `)
+        .catch((err)=>{
+            console.log(err);
+        })
+    else if(token.role == "0")
+        orders = await pool.execute(`
+        SELECT *
+        FROM orders
+        WHERE userID = "${token.ID}" AND orderstatusID is not null
+        `)
+        .catch((err)=>{
+            console.log(err);
+        })
+    return orders[0];
+  }
+module.exports = {getCartItemsByOrderID,submitOrder,deleteOrderItem,getOrdersByUserToken};

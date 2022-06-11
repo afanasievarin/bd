@@ -3,11 +3,11 @@
     <div class="imdiz-product__inner">                
         <div class="imdiz-product__info">
             <p class="imdiz-product__name">{{order.orderID}}</p>
-            <!--<span class="imdiz-product__name">{{worker.workername}}</span>-->
-            <p class="imdiz-product__name">{{orderstatus.orderstatusname}}</p>
+            <p class="imdiz-product__name">{{order.orderstatusname}}</p>
             <p class="imdiz-product__name">{{order.orderdate}}</p>
-            <p class="imdiz-product__name">{{user.usersurname}}</p>
-            <p class="imdiz-product__name">{{worker.workersurname}}</p>		
+            <p class="imdiz-product__name">{{order.usersurname}} {{order.username}}</p>
+            <p class="imdiz-product__name">{{order.userlogin}}</p>
+            <p class="imdiz-product__name">{{order.workersurname}} {{order.workername}}</p>		
         </div>
     </div>
 </li>

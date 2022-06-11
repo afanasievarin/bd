@@ -41,4 +41,8 @@ router.post("/shopcart/delete/contract",jsonParser, async function(request,respo
   else response.sendStatus(200);
 });
 
+router.get("/contracts",verifyToken,checkIfWorker, async function(request,response){
+
+});
+
 module.exports = router;

@@ -7,12 +7,12 @@
     </head>
     <body>	
         <header class="headernotmain">
-            {{> navigationbar}}
+            {{> navigationbar token=token}}
         </header>
         <div class="container products__container">
             <ul class="imdiz-products_row">
             {{#each orders}}
-                {{> order order=this}} 
+                {{> order order=this token=token}} 
             {{/each}}
             </ul>
         </div>

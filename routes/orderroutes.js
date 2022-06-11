@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const {getCartItemsByOrderID,submitOrder,deleteOrderItem} = require("../classes/order.js");
+const {getCartItemsByOrderID,submitOrder,deleteOrderItem,getOrdersByUserToken} = require("../classes/order.js");
 const {findEmptyOrder,findEmptyContract} = require("../classes/catalog.js");
 const {verifyToken, checkIfAdmin, checkIfWorker} = require("../classes/login.js");
 var bodyParser = require('body-parser');
@@ -27,6 +27,12 @@ router.post("/shopcart/create/order",jsonParser, async function(request,response
 router.post("/shopcart/delete/order",jsonParser, async function(request,response){
     if(!request.body || !await deleteOrderItem(request.body)) response.sendStatus(400);
     else response.sendStatus(200);
+});
+
+router.get("/orders",verifyToken,checkIfWorker, async function(request,response){
+    var orders = await getOrdersByUserToken(request.fakeToken);
+    console.log(orders);
+    response.render("orders/orders.hbs",{orders: orders,token: request.fakeToken})
 });
 
 module.exports = router;
