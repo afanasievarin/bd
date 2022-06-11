@@ -103,4 +103,54 @@ async function getContractItemsByContractID(contractID){
     });
     return result;
     }
-module.exports = {getRentableItems, getItemByID,getContractItemsByContractID, submitContract,deleteContractItem};
+
+    async function getContractsByUserToken(token){
+        var contracts;
+        if(token.role == "2")
+            contracts = await pool.execute(`
+            SELECT *
+            FROM contracts
+            LEFT JOIN users
+            ON contracts.userID = users.userID
+            LEFT JOIN workers
+            ON contracts.workerID = workers.workerID
+            LEFT JOIN contractstatuses
+            ON contracts.contractstatusID = contractstatuses.contractstatusID
+            WHERE contracts.contractstatusID is not null
+            `)
+            .catch((err)=>{
+                console.log(err);
+            })
+        else if(token.role == "1")
+            contracts = await pool.execute(`
+            SELECT *
+            FROM contracts
+            LEFT JOIN users
+            ON contracts.userID = users.userID
+            LEFT JOIN workers
+            ON contracts.workerID = workers.workerID
+            LEFT JOIN contractstatuses
+            ON contracts.contractstatusID = contractstatuses.contractstatusID
+            WHERE contracts.workerID = "${token.ID}" AND contractstatuses.contractstatusID is not null
+            `)
+            .catch((err)=>{
+                console.log(err);
+            })
+        else if(token.role == "0")
+            contracts = await pool.execute(`
+            SELECT *
+            FROM contracts
+            LEFT JOIN users
+            ON contracts.userID = users.userID
+            LEFT JOIN workers
+            ON contracts.workerID = workers.workerID
+            LEFT JOIN contractstatuses
+            ON contracts.contractstatusID = contractstatuses.contractstatusID
+            WHERE users.userID = "${token.ID}" AND contractstatuses.contractstatusID is not null
+            `)
+            .catch((err)=>{
+                console.log(err);
+            })
+        return contracts[0];
+      }
+module.exports = {getRentableItems, getItemByID,getContractItemsByContractID, submitContract,deleteContractItem, getContractsByUserToken};

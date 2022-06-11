@@ -2,7 +2,7 @@ const pool = require("./init.js");
 
 const request= [];
 
-function createTables(){
+async function createTables(){
   //0 Пользователь
     request[request.length] = `create table if not exists users(
         userID int not null auto_increment,
@@ -64,9 +64,11 @@ function createTables(){
         contractID int not null auto_increment,
         contractdate date null,
         userID int,
+        workerID tinyint,
         contractstatusID tinyint,
         foreign key(userID) references users(userID),
         foreign key(contractstatusID) references contractstatuses(contractstatusID),
+        foreign key(workerID) references workers(workerID),
         primary key(contractID)
       )`;
       //6 Статус товара
@@ -156,14 +158,15 @@ function createTables(){
         adminpassword varchar(100) not null,
         primary key(adminID)
       )`;
-      fill();
+      
+      await fill();
       
 };
 
-function fill(){
+async function fill(){
   for(let i = 0;i <request.length;i++)
   {
-    pool.execute(request[i])
+    await pool.execute(request[i])
           .then(()=>{
             //console.log("Таблица номер " + i +" создана")
           })
@@ -171,6 +174,33 @@ function fill(){
             console.log("Ошибка в таблице под номером: "+i)
             console.log(err);
           });
+    }
+    var temp = await pool.execute(`
+        SELECT *
+        FROM orderstatuses
+        WHERE orderstatusID = "1" OR orderstatusID = "2"
+      `) 
+      if(!temp[0][0] ){
+        await pool.execute(`
+        INSERT orderstatuses(orderstatusID,orderstatusname)
+        VALUES ("1","В обработке")`);
+        await pool.execute(`
+        INSERT orderstatuses(orderstatusID,orderstatusname)
+        VALUES ("2","Выполнен")`);
+      }
+        
+      temp = await pool.execute(`
+        SELECT *
+        FROM contractstatuses
+        WHERE contractstatusID = "1" OR contractstatusID = "2"
+      `) 
+      if(!temp[0][0] ){
+        await pool.execute(`
+        INSERT contractstatuses(contractstatusID,contractstatusname)
+        VALUES ("1","В обработке")`);
+        await pool.execute(`
+        INSERT contractstatuses(contractstatusID,contractstatusname)
+        VALUES ("2","Закрыт")`);
       }
 };
 

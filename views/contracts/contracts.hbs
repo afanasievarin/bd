@@ -7,11 +7,12 @@
     </head>
     <body>	
         <header class="headernotmain">
-            {{> navigationbar}}
+            {{> navigationbar token=token}}
         </header>
         <div class="container products__container">
             <ul class="imdiz-products_row">
-            {{> contract contract=this}} 
+            {{#each contracts}}
+                {{> contract contract=this token=../token}} 
             {{/each}}
             </ul>
         </div>
