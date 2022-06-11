@@ -102,4 +102,30 @@ async function getCartItemsByOrderID(orderID){
         })
     return orders[0];
   }
-module.exports = {getCartItemsByOrderID,submitOrder,deleteOrderItem,getOrdersByUserToken};
+
+  async function getOrderByID(id){
+    var order = await pool.execute(`
+    SELECT *
+    FROM orders
+        LEFT JOIN users
+        ON orders.userID = users.userID
+        LEFT JOIN workers
+        ON orders.workerID = workers.workerID
+        LEFT JOIN orderstatuses
+        ON orders.orderstatusID = orderstatuses.orderstatusID
+        WHERE orders.orderID = "${id}"
+        LIMIT 1
+    `)
+    .catch((err)=>{
+        console.log(err);
+    })
+    var items = await pool.execute(`
+        SELECT *
+        FROM ordertoitems
+        INNER JOIN items
+        ON ordertoitems.itemID = items.itemID
+        WHERE ordertoitems.orderID = "${id}"
+    `)
+    return {order: order[0][0], items: items[0]}
+  }
+module.exports = {getCartItemsByOrderID,submitOrder,deleteOrderItem,getOrdersByUserToken,getOrderByID};

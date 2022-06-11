@@ -22,8 +22,8 @@
 </html>
 
 <script>
-    var btn = document.getElementById("rent-btn");
-    if(btn)
+    const btns = document.querySelectorAll('.rent-btn');
+    btns.forEach(async function(btn) { 
     btn.onclick = async function(){
         var id = btn.value;
         var data ={ID: id};
@@ -33,4 +33,5 @@
             headers: {'Content-Type': 'application/json'}
         });
     }
+    });
 </script>
