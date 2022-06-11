@@ -16,7 +16,7 @@ router.get("/shopcart/order",verifyToken, async function(request,response){
          id = order[0].orderID;
        }
     else items = {};
-    response.render("orders/shopcart.hbs", {items: items,ID:id, type: "order"});
+    response.render("orders/shopcart.hbs", {items: items,ID:id, type: "order", token: request.fakeToken});
 });
 
 router.post("/shopcart/create/order",jsonParser, async function(request,response){

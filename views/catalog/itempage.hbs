@@ -8,8 +8,8 @@
     </head>
     <body>	
         <header class="headernotmain">
-            {{> navigationbar}}
+            {{> navigationbar token=token}}
         </header>
-        {{> iteminfotable btnname = "В корзину" item = item}}
+        {{> iteminfotable btnname = "В корзину" item = item token=../token}}
     </body>
 </html>

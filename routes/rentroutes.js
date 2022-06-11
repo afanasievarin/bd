@@ -27,7 +27,7 @@ router.get("/shopcart/contract",verifyToken, async function(request,response){
     id = contract[0].contractID;
   }
   else items = {};
-  response.render("orders/shopcart.hbs", {items: items,ID:id, type: "contract"});
+  response.render("orders/shopcart.hbs", {items: items,ID:id, type: "contract", token: request.fakeToken});
 });
 
 router.post("/shopcart/create/contract",jsonParser, async function(request,response){

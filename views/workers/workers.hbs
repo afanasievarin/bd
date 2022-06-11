@@ -7,13 +7,13 @@
     </head>
     <body>	
         <header class="headernotmain">
-            {{> navigationbar}}
+            {{> navigationbar token=token}}
         </header>
         <div class="container products__container">
             <ul class="imdiz-products_row">
             {{> emptyworker}}
             {{#each workers}}
-            {{> worker worker=this}} 
+            {{> worker worker=this token=../token}} 
             {{/each}}
             </ul>
         </div>

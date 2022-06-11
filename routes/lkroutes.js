@@ -5,16 +5,16 @@ const { getUserByID } = require("../classes/user");
 var jsonParser = bodyParser.json();
 const {verifyToken, checkIfAdmin, checkIfWorker} = require("../classes/login.js");
 
-router.get("/",verifyToken,function(_,response){
-    response.render("lk/main.hbs")
+router.get("/",verifyToken,function(request,response){
+    response.render("lk/main.hbs", {token: request.fakeToken})
   });
 
-router.get("/aboutus",verifyToken,function(_,response){
-    response.render("lk/aboutus.hbs")
+router.get("/aboutus",verifyToken,function(request,response){
+    response.render("lk/aboutus.hbs",{token: request.fakeToken})
 }); 
 
-router.get("/lk",verifyToken,function(_,response){
-    response.render("lk/lk.hbs")
+router.get("/lk",verifyToken,function(request,response){
+    response.render("lk/lk.hbs",{token: request.fakeToken})
 }); 
 
 

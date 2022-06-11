@@ -7,11 +7,11 @@
     </head>
     <body>	
         <header class="headernotmain">
-            {{> navigationbar}}
+            {{> navigationbar token=token}}
         </header>
         <div class="item">
                 {{#each items}}
-                    {{> iteminshopcart item=this}} 
+                    {{> iteminshopcart token=../token item=this}} 
                 {{/each}}
         </div>
 

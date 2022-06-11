@@ -5,20 +5,20 @@ const {verifyToken, checkIfAdmin, checkIfWorker} = require("../classes/login.js"
 var bodyParser = require('body-parser');
 var jsonParser = bodyParser.json();
 
-router.get("/catalog",verifyToken, async function(_,response){
+router.get("/catalog",verifyToken, async function(request,response){
     var items = await getItems();
-    response.render("catalog/catalog.hbs", {items: items});
+    response.render("catalog/catalog.hbs", {items: items, token: request.fakeToken});
   });
 
 router.get("/itempage/:id",verifyToken, async function(request,response){
     var id = request.params.id;
     var item = await getItemByID(id);
-    response.render("catalog/itempage.hbs", {item: item[0]});
+    response.render("catalog/itempage.hbs", {item: item[0], token: request.fakeToken});
   });
 
 router.get("/items/create",verifyToken, async function(request,response){
     var data = await getItemsUpdateData();
-    response.render("catalog/createitem.hbs",{categories: data.categories,itemstatuses: data.itemstatuses,itemconditions: data.itemconditions})
+    response.render("catalog/createitem.hbs",{categories: data.categories,itemstatuses: data.itemstatuses,itemconditions: data.itemconditions, token: request.fakeToken})
 });
 
 router.post("/items/create",jsonParser, async function(request,response){
@@ -31,7 +31,7 @@ router.get("/items/update/:id",verifyToken, async function(request,response){
   var data = await getItemsUpdateData();
   var isrent;
   parseInt(item[0].itemisrentable) == 0 ? isrent = "" : isrent="checked";
-  response.render("catalog/createitem.hbs",{item:item[0],isrent:isrent,categories: data.categories,itemstatuses: data.itemstatuses,itemconditions: data.itemconditions})
+  response.render("catalog/createitem.hbs",{item:item[0],isrent:isrent,categories: data.categories,itemstatuses: data.itemstatuses,itemconditions: data.itemconditions, token: request.fakeToken})
 });
 
 router.post("/items/update",jsonParser, async function(request,response){
@@ -41,7 +41,7 @@ else response.sendStatus(200);
 
 router.get("/items/parameters",verifyToken, async function(request,response){
   var data = await getItemsUpdateData();
-  response.render("catalog/parameters.hbs",{categories: data.categories,itemstatuses: data.itemstatuses,itemconditions: data.itemconditions})
+  response.render("catalog/parameters.hbs",{categories: data.categories,itemstatuses: data.itemstatuses,itemconditions: data.itemconditions, token: request.fakeToken})
 });
 
 router.post("/items/parameters/delete/:id",jsonParser,async function(request,response){

@@ -7,7 +7,7 @@ var jsonParser = bodyParser.json();
 
 router.get("/user",verifyToken, async function(request,response){
     var user = await getUserByID(request.fakeToken.id);
-    response.render("lk/privatedata.hbs", {user: user[0]});
+    response.render("lk/privatedata.hbs", {user: user[0], token: request.fakeToken});
     console.log(user);
 });
 
