@@ -5,8 +5,10 @@
 			<li><a class="link" href="/catalog">Товары</a></li>
 			<li><a class="link" href="/rent">Аренда</a></li>
 			<li><a class="link popup" title="Возникли вопросы? Свяжитесь с нами! 8-937-6**-**-**">Поддержка</a></li>
-			<li><a class="link" href="/lk">Личный кабинет</a></li>
+			{{#isLesser token.role "1"}}<li><a class="link" href="/lk">Личный кабинет</a></li>{{/isLesser}}
 			{{#isEquals token.role "0"}}<li><a class="link" href="/shopcart">Корзина</a></li>{{/isEquals}}
+			{{#isGreater token.role "0"}}<li><a class="link" href="/orders">Заказы</a></li>{{/isGreater}}
+			{{#isGreater token.role "0"}}<li><a class="link" href="/contracts">Контракты</a></li>{{/isGreater}}
 			<li><a class="link" href="/aboutus">О нас</a></li>
 			{{#isGreater token.role "1"}}<li><a class="link" href="/workers">Работники</a></li>{{/isGreater}}
 		</ul>

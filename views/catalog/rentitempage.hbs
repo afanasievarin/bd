@@ -13,3 +13,17 @@
         {{> iteminfotable btnname = "В аренду" item = item token=token}}
     </body>
 </html>
+
+<script>
+var btn = document.getElementById("order-btn");
+if(btn)
+    btn.onclick = async function(){
+        var id = btn.value;
+        var data ={ID: id};
+        const response = await fetch('/rent/addtocart', {
+            method: 'post',
+            body: JSON.stringify(data),
+            headers: {'Content-Type': 'application/json'}
+        });
+    }
+</script>

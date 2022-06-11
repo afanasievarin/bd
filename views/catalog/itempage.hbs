@@ -13,3 +13,16 @@
         {{> iteminfotable btnname = "В корзину" item = item token=../token}}
     </body>
 </html>
+<script>
+var btn = document.getElementById("order-btn");
+    if(btn)
+    btn.onclick = async function(){
+        var id = btn.value;
+        var data ={ID: id};
+        const response = await fetch('/catalog/addtocart', {
+            method: 'post',
+            body: JSON.stringify(data),
+            headers: {'Content-Type': 'application/json'}
+        });
+    }
+</script>
