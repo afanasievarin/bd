@@ -1,14 +1,14 @@
 <div class="navigation">
-			<div class="logo">Konoha</a></div>
-			<div class="menu">
-				<ul class="nav">
-					<li><a class="link" href="/catalog">Товары</a></li>
-					<li><a class="link" href="/rent">Аренда</a></li>
-					<li><a class="link popup" title="Возникли вопросы? Свяжитесь с нами! 8-937-6**-**-**">Поддержка</a></li>
-					<li><a class="link" href="/lk">Личный кабинет</a></li>
-					{{#isEquals token.role "0"}}<li><a class="link" href="/shopcart">Корзина</a></li>{{/isEquals}}
-					<li><a class="link" href="/aboutus">О нас</a></li>
-					{{#isGreater token.role "1"}}<li><a class="link" href="/workers">Работники</a></li>{{/isGreater}}
-				</ul>
-			</div>
-		</div>
+	<div class="logo">Konoha</a></div>
+	<div class="menu">
+		<ul class="nav">
+			<li><a class="link" href="/catalog">Товары</a></li>
+			<li><a class="link" href="/rent">Аренда</a></li>
+			<li><a class="link popup" title="Возникли вопросы? Свяжитесь с нами! 8-937-6**-**-**">Поддержка</a></li>
+			<li><a class="link" href="/lk">Личный кабинет</a></li>
+			{{#isEquals token.role "0"}}<li><a class="link" href="/shopcart">Корзина</a></li>{{/isEquals}}
+			<li><a class="link" href="/aboutus">О нас</a></li>
+			{{#isGreater token.role "1"}}<li><a class="link" href="/workers">Работники</a></li>{{/isGreater}}
+		</ul>
+	</div>
+</div>

@@ -14,7 +14,9 @@
     <div></div>
     <table>
         <tr><td colspan="2" style="text-align:center">Описание:</td></tr>
-        <tr><td colspan="2" style="text-align:center">{{item.itemdescription}}</td></tr>
+        <tr><td colspan="2" style="text-align:center">
+            <textarea oninput="auto_grow(this)" id="description" class="teaxtarea-element" type="text" required="">{{item.itemdescription}}</textarea>
+        </td></tr>        
     </table>
     <div></div>
     <div class="invisibleblock"></div>

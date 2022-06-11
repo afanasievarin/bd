@@ -69,7 +69,7 @@
 }
 
 table {
-    padding-top: 5px;
+    padding-top: 1px;
     /*border: 1px solid grey;*/
 }
  
@@ -107,4 +107,16 @@ table {
 	border-radius:2px;
 	cursor:pointer;
 	position:relative;
+}
+
+.teaxtarea-element{
+	border: 0px;
+    width:99%;
+    height: 400px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 15px;
+    color: black;
+	resize: none;
+    background: transparent;
+    overflow: hidden;
 }

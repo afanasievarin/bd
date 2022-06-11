@@ -11,7 +11,7 @@
         </header>
         <div class="container products__container">
             <ul class="imdiz-products_row">
-            {{emptyworker}}
+            {{> emptyworker}}
             {{#each workers}}
             {{> worker worker=this}} 
             {{/each}}
