@@ -31,7 +31,5 @@
         {{/isEquals}}
     </div>
 </div>
-<!--<div class="itemdescription">
-    <p class="outline">{{item.itemdescription}}</p>
-</div>-->
 {{#isGreater token.role "0"}}<a href="/items/update/{{item.itemID}}"><button class="upbtn">Редактировать запись</button></a>{{/isGreater}}
+{{#isGreater token.role "0"}}<a href="/items/update/{{item.itemID}}"><button class="upbtn1">Удалить запись</button></a>{{/isGreater}}
