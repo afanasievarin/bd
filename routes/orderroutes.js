@@ -31,7 +31,6 @@ router.post("/shopcart/delete/order",jsonParser, async function(request,response
 
 router.get("/orders",verifyToken,checkIfWorker, async function(request,response){
     var orders = await getOrdersByUserToken(request.fakeToken);
-    console.log(orders);
     response.render("orders/orders.hbs",{orders: orders,token: request.fakeToken})
 });
 

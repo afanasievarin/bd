@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const {getRentableItems, getItemByID,getContractItemsByContractID,submitContract,deleteContractItem} = require("../classes/rent.js");
+const {getRentableItems, getItemByID,getContractItemsByContractID,submitContract,deleteContractItem, getContractsByUserToken} = require("../classes/rent.js");
 const {findEmptyContract} = require("../classes/catalog.js");
 const {verifyToken, checkIfAdmin, checkIfWorker} = require("../classes/login.js");
 var bodyParser = require('body-parser');
@@ -42,7 +42,8 @@ router.post("/shopcart/delete/contract",jsonParser, async function(request,respo
 });
 
 router.get("/contracts",verifyToken,checkIfWorker, async function(request,response){
-
+    var contracts = await getContractsByUserToken(request.fakeToken);
+    response.render("contracts/contracts.hbs",{contracts: contracts,token: request.fakeToken})
 });
 
 module.exports = router;

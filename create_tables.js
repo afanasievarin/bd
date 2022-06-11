@@ -64,9 +64,11 @@ function createTables(){
         contractID int not null auto_increment,
         contractdate date null,
         userID int,
+        workerID tinyint,
         contractstatusID tinyint,
         foreign key(userID) references users(userID),
         foreign key(contractstatusID) references contractstatuses(contractstatusID),
+        foreign key(workerID) references workers(workerID),
         primary key(contractID)
       )`;
       //6 Статус товара

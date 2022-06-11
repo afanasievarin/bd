@@ -74,7 +74,13 @@ async function getCartItemsByOrderID(orderID){
         orders = await pool.execute(`
         SELECT *
         FROM orders
-        WHERE workerID = "${token.ID}"
+        LEFT JOIN users
+        ON orders.userID = users.userID
+        LEFT JOIN workers
+        ON orders.workerID = workers.workerID
+        LEFT JOIN orderstatuses
+        ON orders.orderstatusID = orderstatuses.orderstatusID
+        WHERE orders.workerID = "${token.ID}" AND orderstatuses.orderstatusID is not null
         `)
         .catch((err)=>{
             console.log(err);
@@ -83,7 +89,13 @@ async function getCartItemsByOrderID(orderID){
         orders = await pool.execute(`
         SELECT *
         FROM orders
-        WHERE userID = "${token.ID}" AND orderstatusID is not null
+        LEFT JOIN users
+        ON orders.userID = users.userID
+        LEFT JOIN workers
+        ON orders.workerID = workers.workerID
+        LEFT JOIN orderstatuses
+        ON orders.orderstatusID = orderstatuses.orderstatusID
+        WHERE users.userID = "${token.ID}" AND orderstatuses.orderstatusID is not null
         `)
         .catch((err)=>{
             console.log(err);
