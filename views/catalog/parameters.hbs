@@ -132,7 +132,6 @@
         if(elem.value){
             var id = elem.value;
             var data = {name: elem.getAttribute('name')};
-            console.log(name);
             const response = await fetch('/items/parameters/delete/'+ id, {
                 method: 'post',
                 body:JSON.stringify(data),
