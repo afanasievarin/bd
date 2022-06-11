@@ -170,4 +170,67 @@ async function updateOrder(data){
     });
     return result;
 }
-module.exports = {getCartItemsByOrderID,submitOrder,deleteOrderItem,getOrdersByUserToken,getOrderByID,getOrderStatusesWithout,updateOrder};
+
+async function deleteParameterForID(type,id){
+    var result = true;
+    await pool.execute(`
+        DELETE 
+        FROM ${type}es
+        WHERE ${type}ID = "${id}"
+    `)
+    .catch(err=>{
+        console.log(err);
+        result = false;
+    });
+    return result;
+  }
+
+  async function editParameters(data){
+    var result = true;
+    
+    if(data.createdata.orderstatuses && data.createdata.orderstatuses.length > 0)
+      await pool.query(`
+        INSERT INTO orderstatuses(orderstatusname)
+        VALUES ?`,[data.createdata.orderstatuses])
+      .catch(err=>{
+          console.log(err);
+          result = false;
+      });
+
+    if(data.createdata.contractstatuses && data.createdata.contractstatuses.length > 0)
+      await pool.query(`
+        INSERT INTO contractstatuses(contractstatusname)
+        VALUES ?`,[data.createdata.contractstatuses])
+      .catch(err=>{
+          console.log(err);
+          result = false;
+      });
+
+    if(data.editdata.contractstatuses)
+    for(const element of data.editdata.contractstatuses){
+      await pool.execute(`
+      UPDATE contractstatuses
+      SET contractstatusname = "${element[1]}"
+      WHERE contractstatusID = "${element[0]}"`)
+    .catch(err=>{
+        console.log(err);
+        result = false;
+    });
+    };
+    
+    if(data.editdata.orderstatuses)
+    for(const element of data.editdata.orderstatuses){
+      await pool.execute(`
+      UPDATE orderstatuses
+      SET orderstatusname = "${element[1]}"
+      WHERE orderstatusID = "${element[0]}"`)
+    .catch(err=>{
+        console.log(err);
+        result = false;
+    });
+    };
+    
+    return result;
+  }
+
+module.exports = {getCartItemsByOrderID,submitOrder,deleteOrderItem,getOrdersByUserToken,getOrderByID,getOrderStatusesWithout,updateOrder, deleteParameterForID, editParameters};
