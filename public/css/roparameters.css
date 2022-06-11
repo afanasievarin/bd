@@ -1,12 +1,14 @@
 .item {
     width: 45%;
-    margin-top: 20%;
+    height: auto;
+    margin-top: 5%;
     margin-left: 25%;
     background: #FFFFFF;
     box-shadow: 5px 2px 3px 0px #0027d4;
     border-radius: 6px;
     display: flex;
     flex-direction: column;
+    margin-bottom: 1%;
 }
 
 .iteminshopcart {
@@ -106,7 +108,7 @@ input:focus {
 	text-transform: none;
     margin-top: 1%;
     margin-bottom: 1%;
-    margin-left: 65%;
+    margin-left: 85%;
 	border-radius:6px;
 	cursor:pointer;
 	position:relative;
@@ -120,17 +122,17 @@ input:focus {
     color: rgb(255, 255, 255);
 	padding:5px 10px;
 	text-transform: none;
-    top: 43%;
-    left: 50%;
+    margin-top: 5%;
+    margin-left: 78%;
 	border-radius:6px;
 	cursor:pointer;
 	position: absolute;
 }
 
 .maininfo {
-    width: auto;
+    width: 25%;
     height: auto;
-    float: left;
+    float: none;
     background: #4c6cf9;
     border: solid 1px grey;
     position: relative;

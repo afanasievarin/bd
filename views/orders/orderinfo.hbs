@@ -12,48 +12,48 @@
 		</header>
         {{#isGreater token.role "0"}}<a href="/roparameters"><button class="upbtn">Редактировать параметры</button></a>{{/isGreater}}
 		<div class="maininfo">
-					<input hidden id="id" value="{{user.userID}}">
-					<table>
-						<caption><b>Информация о заказе:</b></caption>
-						<tr>
-							<td>ФИО заказчика:</td>
-							<td><input readonly name="input" value="{{order.usersurname}} {{order.username}} {{order.usermidname}}"></td>
-						</tr>
-						<tr>
-							<td>Логин заказчика:</td>
-							<td><input readonly name="input" value="{{order.usersurname}}"></td>
-						</tr>
-                        <tr>
-							<td>ФИО работника:</td>
-							<td>
-								<select {{attribute}} name="input" id="worker">
-									<option value = "{{order.workerID}}">{{order.workersurname}} {{order.workername}} {{order.workermidname}}</option>
-								{{#isGreater token.role "1"}}
-                                {{#each workers}}
-                                    <option value = "{{this.workerID}}">{{this.workersurname}} {{this.workername}} {{this.workermidname}}</option>
-                                {{/each}}
-								{{/isGreater}}
-                            	</select>
-							</td>
-						</tr>
-						<tr>
-							<td>Статус:</td>
-							<td>
-								<select {{attribute}} name="input" id="status">
-									<option value = "{{order.orderstatusID}}">{{order.orderstatusname}}</option>
-                                {{#each orderstatuses}}
-                                    <option value = "{{this.orderstatusID}}">{{this.orderstatusname}}</option>
-                                {{/each}}
-                            	</select>
-							</td>
-						</tr>
-                        <tr>
-							<td>Дата заказа:</td>
-							<td><input readonly  type="date" name="input" value="{{order.orderdate}}"></td>
-						</tr>
-					</table>
-				</div>  
-		{{#isGreater token.role "0"}}<button class="upbtn1" id="update-btn" value="{{order.orderID}}">Сохранить</button>  {{/isGreater}}
+			<input hidden id="id" value="{{user.userID}}">
+			<table>
+				<caption><b>Информация о заказе:</b></caption>
+				<tr>
+					<td>ФИО заказчика:</td>
+					<td><input readonly name="input" value="{{order.usersurname}} {{order.username}} {{order.usermidname}}"></td>
+				</tr>
+				<tr>
+					<td>Логин заказчика:</td>
+					<td><input readonly name="input" value="{{order.usersurname}}"></td>
+				</tr>
+				<tr>
+					<td>ФИО работника:</td>
+					<td>
+						<select {{attribute}} name="input" id="worker">
+							<option value = "{{order.workerID}}">{{order.workersurname}} {{order.workername}} {{order.workermidname}}</option>
+						{{#isGreater token.role "1"}}
+						{{#each workers}}
+							<option value = "{{this.workerID}}">{{this.workersurname}} {{this.workername}} {{this.workermidname}}</option>
+						{{/each}}
+						{{/isGreater}}
+						</select>
+					</td>
+				</tr>
+				<tr>
+					<td>Статус:</td>
+					<td>
+						<select {{attribute}} name="input" id="status">
+							<option value = "{{order.orderstatusID}}">{{order.orderstatusname}}</option>
+						{{#each orderstatuses}}
+							<option value = "{{this.orderstatusID}}">{{this.orderstatusname}}</option>
+						{{/each}}
+						</select>
+					</td>
+				</tr>
+				<tr>
+					<td>Дата заказа:</td>
+					<td><input readonly  type="date" name="input" value="{{order.orderdate}}"></td>
+				</tr>
+			</table>
+			{{#isGreater token.role "0"}}<button class="upbtn1" id="update-btn" value="{{order.orderID}}">Сохранить</button>  {{/isGreater}}
+		</div>  
         <div class="item">
             {{#each items}}
                 {{> iteminshopcart item=this token=../token}} 
