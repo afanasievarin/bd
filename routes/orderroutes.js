@@ -1,8 +1,9 @@
 const express = require("express");
 const router = express.Router();
-const {getCartItemsByOrderID,submitOrder,deleteOrderItem,getOrdersByUserToken,getOrderByID, getOrderStatusesWithout,updateOrder} = require("../classes/order.js");
-const {findEmptyOrder,findEmptyContract} = require("../classes/catalog.js");
-const {verifyToken, checkIfAdmin, checkIfWorker} = require("../classes/login.js");
+const {getCartItemsByOrderID,submitOrder,deleteOrderItem,getOrdersByUserToken,getOrderByID, getOrderStatusesWithout,updateOrder, deleteParameterForID, editParameters} = require("../classes/order.js");
+const {findEmptyOrder} = require("../classes/catalog.js");
+const {getContractStatusesWithout} = require("../classes/rent.js");
+const {verifyToken, checkIfWorker} = require("../classes/login.js");
 const {getWorkersWithout} = require("../classes/worker.js");
 var bodyParser = require('body-parser');
 var jsonParser = bodyParser.json();
@@ -49,4 +50,19 @@ router.post("/order/update", jsonParser, async function(request,response){
     else response.sendStatus(200);
 });
 
+router.get("/roparameters",verifyToken,checkIfWorker, async function(request,response){
+    var orderstatuses = await getOrderStatusesWithout();
+    var contractstatuses = await getContractStatusesWithout();
+    response.render("rentorderparam/roparameters.hbs",{orderstatuses: orderstatuses, contractstatuses: contractstatuses,token: request.fakeToken})
+  });
+  
+  router.post("/roparameters/delete/:id",jsonParser,async function(request,response){
+    if(!request.body || !await deleteParameterForID(request.body.name,request.params.id)) response.sendStatus(400);
+    else response.sendStatus(200);
+  });
+  
+  router.post("/roparameters/edit",jsonParser, async function(request,response){
+    if(!request.body || ! await editParameters(request.body)) response.sendStatus(400);
+    else response.sendStatus(200);
+  });
 module.exports = router;

@@ -5,7 +5,7 @@ const pool = mysql.createConnection({
     host: "localhost",
     user: "root",
     database: "animebd",
-    password: "ForeverYoungAndSmile",
+    password: "IndiAndDigo159",
     dateStrings: true
   }).promise();
 

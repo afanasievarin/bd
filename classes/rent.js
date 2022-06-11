@@ -131,7 +131,7 @@ async function getContractItemsByContractID(contractID){
             ON contracts.workerID = workers.workerID
             LEFT JOIN contractstatuses
             ON contracts.contractstatusID = contractstatuses.contractstatusID
-            WHERE contracts.workerID = "${token.ID}" AND contractstatuses.contractstatusID is not null
+            WHERE contracts.workerID = "${token.id}" AND contractstatuses.contractstatusID is not null
             `)
             .catch((err)=>{
                 console.log(err);
@@ -146,7 +146,7 @@ async function getContractItemsByContractID(contractID){
             ON contracts.workerID = workers.workerID
             LEFT JOIN contractstatuses
             ON contracts.contractstatusID = contractstatuses.contractstatusID
-            WHERE users.userID = "${token.ID}" AND contractstatuses.contractstatusID is not null
+            WHERE users.userID = "${token.id}" AND contractstatuses.contractstatusID is not null
             `)
             .catch((err)=>{
                 console.log(err);
