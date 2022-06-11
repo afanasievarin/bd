@@ -7,7 +7,7 @@ var bodyParser = require('body-parser');
 const { request } = require("express");
 var jsonParser = bodyParser.json();
 
-router.get("/rent",verifyToken, async function(_,response){
+router.get("/rent",verifyToken, async function(request,response){
     var rentableitems = await getRentableItems();
     response.render("catalog/rent.hbs", {items: rentableitems,token:request.fakeToken});
 });
