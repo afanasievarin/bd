@@ -1,10 +1,12 @@
 <div class="iteminshopcart">
     <div class="grid">
+        {{#unless check}}
         <div class="buttons">
             <button class="deletebtn" value="{{item.itemID}}" type="button" name="button">
                 <img class="deleteimg" src="../../image/svg/delete.svg" alt="" />
             </button>
         </div>
+        {{/unless}}
         <div><img class="shopcartimg" src="{{item.itemimagepath}}" alt="" /></div>
         <div class="descrforshopcart">
             <span>{{item.itemname}}</span>
