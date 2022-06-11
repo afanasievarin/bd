@@ -1,22 +1,22 @@
 const express = require("express");
 const router = express.Router();
-const {getItems, getItemByID,getItemsUpdateData,createItem,updateItem,deleteParameterForID,editParameters} = require("../classes/catalog.js");
+const {getItems, getItemByID,getItemsUpdateData,createItem,updateItem,deleteParameterForID,editParameters,addItemToCartByID,addItemToContractByID} = require("../classes/catalog.js");
 const {verifyToken, checkIfAdmin, checkIfWorker} = require("../classes/login.js");
 var bodyParser = require('body-parser');
 var jsonParser = bodyParser.json();
 
-router.get("/catalog", async function(_,response){
+router.get("/catalog",verifyToken, async function(_,response){
     var items = await getItems();
     response.render("catalog/catalog.hbs", {items: items});
   });
 
-router.get("/itempage/:id", async function(request,response){
+router.get("/itempage/:id",verifyToken, async function(request,response){
     var id = request.params.id;
     var item = await getItemByID(id);
     response.render("catalog/itempage.hbs", {item: item[0]});
   });
 
-router.get("/items/create", async function(request,response){
+router.get("/items/create",verifyToken, async function(request,response){
     var data = await getItemsUpdateData();
     response.render("catalog/createitem.hbs",{categories: data.categories,itemstatuses: data.itemstatuses,itemconditions: data.itemconditions})
 });
@@ -26,7 +26,7 @@ router.post("/items/create",jsonParser, async function(request,response){
   else response.sendStatus(200);
 });
 
-router.get("/items/update/:id", async function(request,response){
+router.get("/items/update/:id",verifyToken, async function(request,response){
   var item = await getItemByID(request.params.id);
   var data = await getItemsUpdateData();
   var isrent;
@@ -39,7 +39,7 @@ if(!request.body || !await updateItem(request.body)) response.sendStatus(400);
 else response.sendStatus(200);
 });
 
-router.get("/items/parameters", async function(request,response){
+router.get("/items/parameters",verifyToken, async function(request,response){
   var data = await getItemsUpdateData();
   response.render("catalog/parameters.hbs",{categories: data.categories,itemstatuses: data.itemstatuses,itemconditions: data.itemconditions})
 });
@@ -50,8 +50,17 @@ router.post("/items/parameters/delete/:id",jsonParser,async function(request,res
 });
 
 router.post("/items/parameters/edit",jsonParser, async function(request,response){
-  console.log(request.body);
   if(!request.body || ! await editParameters(request.body)) response.sendStatus(400);
+  else response.sendStatus(200);
+});
+
+router.post("/catalog/addtocart", jsonParser,verifyToken, async function(request,response){
+  if(!request.body || ! await addItemToCartByID(request.body.ID, request.fakeToken.id)) response.sendStatus(400);
+  else response.sendStatus(200);
+});
+
+router.post("/rent/addtocart", jsonParser,verifyToken, async function(request,response){
+  if(!request.body || ! await addItemToContractByID(request.body.ID, request.fakeToken.id)) response.sendStatus(400);
   else response.sendStatus(200);
 });
 

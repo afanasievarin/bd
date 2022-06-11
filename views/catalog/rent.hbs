@@ -20,3 +20,16 @@
         </div>
     </body>
 </html>
+
+<script>
+    var btn = document.getElementById("rent-btn");
+    btn.onclick = async function(){
+        var id = btn.value;
+        var data ={ID: id};
+        const response = await fetch('/rent/addtocart', {
+            method: 'post',
+            body: JSON.stringify(data),
+            headers: {'Content-Type': 'application/json'}
+        });
+    }
+</script>
