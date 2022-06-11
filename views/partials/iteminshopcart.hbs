@@ -1,24 +1,26 @@
 <div class="iteminshopcart">
-    <div class="buttons">
-        <button class="deletebtn" value="{{item.itemID}}" type="button" name="button">
-            <img class="deleteimg" src="../../image/svg/delete.svg" alt="" />
-        </button>
+    <div class="grid">
+        <div class="buttons">
+            <button class="deletebtn" value="{{item.itemID}}" type="button" name="button">
+                <img class="deleteimg" src="../../image/svg/delete.svg" alt="" />
+            </button>
+        </div>
+        <div><img class="shopcartimg" src="{{item.itemimagepath}}" alt="" /></div>
+        <div class="descrforshopcart">
+            <span>{{item.itemname}}</span>
+            <span>Состояние: {{item.itemconditionname}}</span>
+        </div>
+        <!--<div class="count">
+            <button class="plusbtn" type="button" name="button">
+            <img src="../../image/svg/plus.svg" alt="" />
+            </button>
+            <input id="vcount" type="text" name="name" value="1">
+            <button class="minusbtn" type="button" name="button">
+            <img src="../../image/svg/minus.svg" alt="" />
+            </button>
+        </div>-->
+        <div class="price">Цена: {{item.itemprice}}</div>
     </div>
-    <div class="item-img" href="{{item.itemimagepath}}"></div>
-    <div class="descrforshopcart">
-        <span>{{item.itemname}}</span>
-        <span>{{item.itemconditionname}}</span>
-    </div>
-    <!--<div class="count">
-        <button class="plusbtn" type="button" name="button">
-        <img src="../../image/svg/plus.svg" alt="" />
-        </button>
-        <input id="vcount" type="text" name="name" value="1">
-        <button class="minusbtn" type="button" name="button">
-        <img src="../../image/svg/minus.svg" alt="" />
-        </button>
-    </div>-->
-    <div class="price">{{item.itemprice}}</div>
 </div>
 
      

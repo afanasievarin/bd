@@ -1,5 +1,5 @@
 .item {
-    width: 750px;
+    width: 45%;
     margin: 80px auto;
     background: #FFFFFF;
     box-shadow: 5px 2px 3px 0px #0027d4;
@@ -16,7 +16,7 @@
 
 .buttons {
     position: relative;
-    padding-top: 20px;
+    padding-top: 27%;
     margin-right: 60px;
 }
 
@@ -47,63 +47,10 @@
     color: #43484D;
     font-weight: 400;
     font-weight: 300;
-    margin-top: 8px;
+    margin-top: 20%;
+    margin-left: auto;
     color: #86939E;
     margin-bottom: 5px;
-}
-
-.count {
-
-    padding-top: 20px;
-    margin-right: 60px;
-}
-
-.count input {
-    -webkit-appearance: none;
-    border: none;
-    text-align: center;
-    width: 32px;
-    font-size: 16px;
-    color: #43484D;
-    font-weight: 300;
-}
-
-img {
-    height: 25px;
-    width: 25px;
-}
-
-.image {
-    margin-right: 50px;
-}
-
-.minusbtn {
-    text-align: center;
-    border-radius: 15px;
-    width: 30px;
-    height: 30px;
-}
-.minusbtn img {
-    margin-left: auto;
-    margin-right: auto;
-    display: block;
-    max-width:100%;
-    max-height:100%;
-}
-
-.plusbtn {
-    text-align: center;
-    border-radius: 15px;
-    width: 30px;
-    height: 30px;
-}
-
-.plusbtn img {
-    margin-left: auto;
-    margin-right: auto;
-    display: block;
-    max-width:100%;
-    max-height:100%;
 }
    
 button:focus,
@@ -113,9 +60,53 @@ input:focus {
 
 .price {
     width: 83px;
-    padding-top: 27px;
+    padding-top: 30%;
     text-align: center;
     font-size: 16px;
     color: #43484D;
     font-weight: 300;
+}
+
+.shopcartimg {
+    width: 60%;
+    height: auto;
+}
+
+.grid {
+    padding-top: auto;
+    padding-left: auto;
+    opacity: 1;
+    /*рисуем зелёные рамки
+    border: 5px solid #ffffff;*/
+    /*подключаем сетку*/
+    display: grid;
+    /*формируем по 4 одинаковых строки и столбца*/
+    grid-template-columns: repeat(4, 150px);
+    grid-template-rows: repeat(1, auto);
+} 
+
+  /*внешний вид ячеек*/
+.grid > * {    
+    /*фоновый цвет*/
+    /*background-color: #ffffff;*/
+    /*скругление углов*/
+    border-radius: 10px;
+    /*расстояние от одной границы ячейки до другой*/
+    margin: 1px;
+}
+
+.upbtn{
+    color:rgb(255, 255, 255);
+	background: #0027d4;
+	outline: none;
+    border: 0;
+    color: rgb(255, 255, 255);
+	padding:10px 20px;
+	text-transform:uppercase;
+    margin-top: auto;
+    margin-bottom: 1%;
+    margin-left: 65%;
+	border-radius:6px;
+	cursor:pointer;
+	position:relative;
 }
