@@ -119,13 +119,23 @@ async function getCartItemsByOrderID(orderID){
     .catch((err)=>{
         console.log(err);
     })
+    console.log(id);
+
     var items = await pool.execute(`
-        SELECT *
-        FROM ordertoitems
-        INNER JOIN items
-        ON ordertoitems.itemID = items.itemID
+        SELECT * FROM items
+        LEFT JOIN categories 
+        ON items.categoryID = categories.categoryID
+        LEFT JOIN itemstatuses 
+        ON items.itemstatusID = itemstatuses.itemstatusID
+        LEFT JOIN itemconditions 
+        ON items.itemconditionID = itemconditions.itemconditionID
+        INNER JOIN ordertoitems
+        ON items.itemID = ordertoitems.itemID
         WHERE ordertoitems.orderID = "${id}"
     `)
+    .catch((err)=>{
+        console.log(err);
+    })
     return {order: order[0][0], items: items[0]}
   }
 module.exports = {getCartItemsByOrderID,submitOrder,deleteOrderItem,getOrdersByUserToken,getOrderByID};

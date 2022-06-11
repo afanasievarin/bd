@@ -35,7 +35,8 @@ router.get("/orders",verifyToken,checkIfWorker, async function(request,response)
 });
 
 router.get("/orders/order/:id",verifyToken,checkIfWorker, async function(request,response){
-    var data = getOrderByID(request.params.id);
+    var data = await getOrderByID(request.params.id);
+    console.log(data.items);
     response.render("orders/orderinfo.hbs",{order:data.order, items: data.items, token: request.fakeToken})
 });
 
