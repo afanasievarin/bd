@@ -16,7 +16,7 @@ router.get("/itempage/:id",verifyToken, async function(request,response){
     response.render("catalog/itempage.hbs", {item: item[0], token: request.fakeToken});
   });
 
-router.get("/items/create",verifyToken, async function(request,response){
+router.get("/items/create",verifyToken,checkIfWorker, async function(request,response){
     var data = await getItemsUpdateData();
     response.render("catalog/createitem.hbs",{categories: data.categories,itemstatuses: data.itemstatuses,itemconditions: data.itemconditions, token: request.fakeToken})
 });
@@ -26,7 +26,7 @@ router.post("/items/create",jsonParser, async function(request,response){
   else response.sendStatus(200);
 });
 
-router.get("/items/update/:id",verifyToken, async function(request,response){
+router.get("/items/update/:id",verifyToken,checkIfWorker, async function(request,response){
   var item = await getItemByID(request.params.id);
   var data = await getItemsUpdateData();
   var isrent;
@@ -39,7 +39,7 @@ if(!request.body || !await updateItem(request.body)) response.sendStatus(400);
 else response.sendStatus(200);
 });
 
-router.get("/items/parameters",verifyToken, async function(request,response){
+router.get("/items/parameters",verifyToken,checkIfWorker, async function(request,response){
   var data = await getItemsUpdateData();
   response.render("catalog/parameters.hbs",{categories: data.categories,itemstatuses: data.itemstatuses,itemconditions: data.itemconditions, token: request.fakeToken})
 });
