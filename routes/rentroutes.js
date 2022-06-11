@@ -4,17 +4,18 @@ const {getRentableItems, getItemByID,getContractItemsByContractID,submitContract
 const {findEmptyContract} = require("../classes/catalog.js");
 const {verifyToken, checkIfAdmin, checkIfWorker} = require("../classes/login.js");
 var bodyParser = require('body-parser');
+const { request } = require("express");
 var jsonParser = bodyParser.json();
 
 router.get("/rent",verifyToken, async function(_,response){
     var rentableitems = await getRentableItems();
-    response.render("catalog/rent.hbs", {items: rentableitems});
+    response.render("catalog/rent.hbs", {items: rentableitems,token:request.fakeToken});
 });
 
 router.get("/rentitempage/:id",verifyToken, async function(request,response){
   var id = request.params.id;
   var item = await getItemByID(id);
-  response.render("catalog/rentitempage.hbs", {item: item[0]});
+  response.render("catalog/rentitempage.hbs", {item: item[0],token:request.fakeToken});
 });
 
 router.get("/shopcart/contract",verifyToken, async function(request,response){
