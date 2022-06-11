@@ -1,0 +1,109 @@
+body{
+	background: linear-gradient(rgba(35, 41, 214, 0.8), rgba(130, 35, 177, 0.4));
+	background-position: center;
+    background-origin: content-box;
+    background-repeat: no-repeat;
+    background-size: cover;
+    min-height: 100vh;
+	font-family: 'Ubuntu', sans-serif;
+}
+
+.grid {
+    padding-top:5%;
+    padding-left: 37%;
+    margin-bottom: 20%;
+    /*рисуем зелёные рамки*/
+    /*border: 5px solid #ffffff;*/
+    /*подключаем сетку*/
+    display: grid;
+    /*формируем по 4 одинаковых строки и столбца*/
+    grid-template-columns: repeat(1, 370px);
+    grid-template-rows: repeat(1, auto);
+} 
+  /*внешний вид ячеек*/
+.grid > * {
+    /*фоновый цвет
+    background-color: #0083d4;*/
+    background: linear-gradient(rgba(35, 41, 214, 0.8), rgba(130, 35, 177, 0.4));
+    /*скругление углов*/
+    border-radius: 10px;
+    /*расстояние от одной границы ячейки до другой*/
+    margin: 10px;
+}
+
+.box{
+	position:relative;
+	/*left:50%;
+	top:50%;*/
+	/*transform: translate(-50%,-50%);*/
+    height: auto;
+    width: auto;
+    background: #a0cbe5;
+	border-radius:3px;
+	/*padding:70px 100px;*/
+}
+.input-container{
+	position:relative;
+	margin-bottom:25px;
+}
+.input-container label{
+	position:absolute;
+	top:0px;
+	left:0px;
+	font-size:16px;
+	color:#fff;
+	transition: all 0.5s ease-in-out;
+}
+.input-container input{ 
+    border:0;
+    border-bottom:1px solid rgb(73, 69, 69);  
+    background:transparent;
+    width:100%;
+    padding:8px 0 5px 0;
+    font-size:16px;
+    color:#fff;
+}
+.input-container input:focus{ 
+    border:none;	
+    outline:none;
+    border-bottom:1px solid #a0cbe5;	
+}
+
+.input-container input:focus ~ label,
+.input-container input:valid ~ label{
+	top:-12px;
+	font-size:12px;	
+}
+
+a {
+    color: #fff;
+    padding:10px 20px;
+	margin-top:50px;
+    /*padding-top: 50%;
+    padding-left: 60%;*/
+    text-decoration: none;
+}
+
+.teaxtarea-element{
+	border: 0px;
+    width:100%;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 20px;
+    color: black;
+	resize: none;
+}
+
+.upbtn{
+    color:rgb(255, 255, 255);
+	background:  rgba(0, 7, 205, 0.4);
+	outline: none;
+    border: 0;
+    color: rgb(255, 255, 255);
+	padding:10px 20px;
+	text-transform:uppercase;
+    margin-top: 1%;
+    margin-left: 72%;
+	border-radius:2px;
+	cursor:pointer;
+	position:relative;
+}
