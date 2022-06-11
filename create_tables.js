@@ -44,12 +44,12 @@ function createTables(){
       //3 Заказ
       request[request.length] =`create table if not exists orders(
         orderID int not null auto_increment,
-        orderdate date not null,
-        workerID tinyint not null,
+        orderdate date null,
+        workerID tinyint null,
         userID int not null,
-        orderstatusID tinyint not null,
+        orderstatusID tinyint null,
         foreign key(workerID) references workers(workerID),
-        foreign key(userID) references users(userID),
+        foreign key(userID) references users(userID) on delete cascade,
         foreign key(orderstatusID) references orderstatuses(orderstatusID),
         primary key(orderID)        
         )`;
@@ -121,6 +121,7 @@ function createTables(){
       request[request.length] =`create table if not exists ordertoitems(
         orderID int,
         itemID int,
+        itemcount tinyint default 1,
         foreign key(orderID) references orders(orderID),
         foreign key(itemID) references items(itemID)
       )`;

@@ -14,9 +14,9 @@ async function getItems(){
     .catch(err =>{
         console.log(err);
     });
-    //console.log(items[0]);
     return items[0];
 };
+
 
 async function getItemByID(ID){
     let item = await pool.execute(`
@@ -215,4 +215,54 @@ async function deleteParameterForID(type,id){
     };
     return result;
   }
-module.exports = {getItems, getItemByID,getItemsUpdateData, createItem,updateItem,deleteParameterForID,editParameters};
+
+  async function createOrder(userID){
+      await pool.execute(`
+        INSERT orders(userID)
+        VALUES ("${userID}")
+      `)
+      .catch((err)=>{
+          console.log(err);
+      })
+  }
+
+  async function findEmptyOrder(userID){
+    var data = await pool.execute(`
+        SELECT *
+        FROM orders
+        WHERE userID = "${userID}" AND orderstatusID is null
+        LIMIT 1
+    `)
+    .catch(err=>{
+        console.log(err);
+    });
+    console.log(data[0]);
+    return data[0];
+  }
+
+  async function addItemToCartByID(id, userID){
+
+    var data = await findEmptyOrder(userID);
+    if(!data[0]) 
+    {
+      await createOrder(userID);
+      data = await findEmptyOrder(userID);
+    }
+
+  var result;
+    result = await pool.execute(`
+      INSERT ordertoitems(orderID, itemID)
+      VALUES ("${data[0].orderID}",${id})
+    `)
+    .then(()=>{
+      result =true;
+    })
+    .catch(err=>{
+        console.log(err);
+        result = false;
+    });
+      return result;
+    };
+
+
+module.exports = {getItems, getItemByID,getItemsUpdateData, createItem,updateItem,deleteParameterForID,editParameters,addItemToCartByID,findEmptyOrder};

@@ -1,8 +1,9 @@
 const express = require("express");
 const router = express.Router();
-const {getItems, getItemByID,getItemsUpdateData,createItem,updateItem,deleteParameterForID,editParameters} = require("../classes/catalog.js");
+const {getItems, getItemByID,getItemsUpdateData,createItem,updateItem,deleteParameterForID,editParameters,addItemToCartByID} = require("../classes/catalog.js");
 const {verifyToken, checkIfAdmin, checkIfWorker} = require("../classes/login.js");
 var bodyParser = require('body-parser');
+const { json } = require("express");
 var jsonParser = bodyParser.json();
 
 router.get("/catalog", async function(_,response){
@@ -52,6 +53,11 @@ router.post("/items/parameters/delete/:id",jsonParser,async function(request,res
 router.post("/items/parameters/edit",jsonParser, async function(request,response){
   console.log(request.body);
   if(!request.body || ! await editParameters(request.body)) response.sendStatus(400);
+  else response.sendStatus(200);
+});
+
+router.post("/catalog/addtocart", jsonParser,verifyToken, async function(request,response){
+  if(!request.body || ! await addItemToCartByID(request.body.ID, request.fakeToken.id)) response.sendStatus(400);
   else response.sendStatus(200);
 });
 
