@@ -14,6 +14,18 @@ async function getWorkers(){
     return workers[0];
 }
 
+async function getWorkersWithout(id){
+    let workers = await pool.execute(`
+        SELECT * 
+        FROM workers
+        WHERE workerID != "${id}"
+    `)
+    .catch(err =>{
+        console.log(err);
+    });
+    return workers[0];
+}
+
 async function getWorkerByID(ID){
     let worker = await pool.execute(`
         SELECT * 
@@ -77,4 +89,4 @@ console.log(result);
 return result;
 }
 
-module.exports = {getWorkerByID,getWorkers,updateWorkerByID,createWorker};
+module.exports = {getWorkerByID,getWorkers,updateWorkerByID,createWorker,getWorkersWithout};
