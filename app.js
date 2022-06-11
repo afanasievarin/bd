@@ -8,7 +8,7 @@ const rentroutes = require("./routes/rentroutes.js");
 const lkroutes = require("./routes/lkroutes.js");
 const loginroutes = require("./routes/loginroutes.js");
 const workerRoutes = require("./routes/workerroutes.js");
-
+const adminRoutes = require("./routes/adminroutes.js");
 
 const express = require("express");
 createTables();
@@ -22,7 +22,7 @@ app.use(rentroutes);
 app.use(lkroutes);
 app.use(loginroutes);
 app.use(workerRoutes);
-
+app.use(adminRoutes);
 
 hbs.registerHelper('isGreater', function(p, q, options) {
     return (parseInt(p) > parseInt(q)) ? options.fn(this) : options.inverse(this);

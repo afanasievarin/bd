@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/autosize.js/4.0.2/autosize.min.js"></script>
+	<link rel="stylesheet" href="/../css/parameters.css">
+    <link rel="stylesheet" href="/../css/style.css">
+</head>
+	<body>	
+        <header class="headernotmain">
+        {{> navigationbar}}
+        </header>        
+        <a href="/admins/admin/create" class="create_href"><button class="create-button">Добавить админа</button></a>
+        <div class="grid">
+            <div class="box">
+                <table>
+                <caption>Список админов</caption>
+                <tr>
+                    <th>ID</th>
+                    <th>Логин</th>
+                    <th>Почта</th>
+                </tr>
+                {{#each admins as |admin|}}
+                <tr>
+                    <td>{{admin.adminID}}</td>
+                    <td>{{admin.adminlogin}}</a></td>
+                    <td>{{admin.adminemail}}</td>
+                    {{#isGreater admin.adminID "1"}}
+                    <td><button onclick="delete_element(this)" id="delete-button" class="table-button" value="{{admin.adminID}}">Удалить</button></td>
+                    {{/isGreater}}
+                </tr>
+                {{/each}}
+                </table>
+            </div>
+            
+        </div>
+	</body>
+</html>
+<script>
+    async function delete_element(elem){
+        var id = elem.value;
+        const response = await fetch('/admins/admin/delete/'+id, {
+            method: 'post',
+            headers: {'Content-Type': 'application/json'}
+        });
+        if (response.status == 400) {alert("Ошибка");return;}
+        var tr = elem.closest("tr");
+        tr.remove();
+    }
+</script>

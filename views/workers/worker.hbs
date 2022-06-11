@@ -139,6 +139,10 @@
         if(!data.salary || !/^\d+$/.test(data.salary) || data.salary > 499999){alert("Некорректная зарплата");return;}
         if(!data.experience || !/^\d+$/.test(data.experience) || data.experience > 80){alert("Некорректный опыт работы");return;}
 
+		if(!data.login) {alert("Введите логин"); return;}
+        if(data.login.length > 30){alert("Логин не должен быть длиннее 30 симоволов"); return;}
+
+
         if(psw != "")
             if(data.password.length < 3){alert("Пароль не должен быть короче 3 симоволов"); return;}
             if(data.password.length > 20){alert("Пароль не должен быть длиннее 20 симоволов"); return;}
