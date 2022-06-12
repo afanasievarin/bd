@@ -22,7 +22,7 @@ async function getCartItemsByOrderID(orderID){
   async function submitOrder(data){
     var result;
     var temp = new Date();
-    var date = temp.getFullYear()+"-"+temp.getMonth()+"-"+temp.getDate();
+    var date = temp.getFullYear()+"-"+(temp.getMonth()+1)+"-"+temp.getDate();
     await pool.execute(`
         UPDATE orders
         SET
@@ -236,4 +236,19 @@ async function deleteParameterForID(type,id){
     return result;
   }
 
-module.exports = {getCartItemsByOrderID,submitOrder,deleteOrderItem,getOrdersByUserToken,getOrderByID,getOrderStatusesWithout,updateOrder, deleteParameterForID, editParameters};
+  async function deleteOrder(id){
+    var result = true;
+    await pool.execute(`
+        DELETE 
+        FROM orders
+        WHERE orderID = "${id}"
+        LIMIT 1
+    `)
+    .catch((err)=>{
+        console.log(err);
+        result = false;
+    })
+    return result;
+  }
+
+module.exports = {getCartItemsByOrderID,deleteOrder,submitOrder,deleteOrderItem,getOrdersByUserToken,getOrderByID,getOrderStatusesWithout,updateOrder, deleteParameterForID, editParameters};

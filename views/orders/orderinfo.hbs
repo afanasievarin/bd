@@ -21,7 +21,7 @@
 				</tr>
 				<tr>
 					<td>Логин заказчика:</td>
-					<td><input readonly name="input" value="{{order.usersurname}}"></td>
+					<td><input readonly name="input" value="{{order.login}}"></td>
 				</tr>
 				<tr>
 					<td>ФИО работника:</td>
@@ -56,7 +56,7 @@
 		</div>  
         <div class="item">
             {{#each items}}
-                {{> iteminshopcart item=this token=../token check="true"}} 
+                {{> iteminshopcart item=this token=../token check="true" }} 
             {{/each}}
         </div> 		
 	</body>

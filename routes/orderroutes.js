@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const {getCartItemsByOrderID,submitOrder,deleteOrderItem,getOrdersByUserToken,getOrderByID, getOrderStatusesWithout,updateOrder, deleteParameterForID, editParameters} = require("../classes/order.js");
+const {getCartItemsByOrderID,submitOrder,deleteOrder,deleteOrderItem,getOrdersByUserToken,getOrderByID, getOrderStatusesWithout,updateOrder, deleteParameterForID, editParameters} = require("../classes/order.js");
 const {findEmptyOrder} = require("../classes/catalog.js");
 const {getContractStatusesWithout} = require("../classes/rent.js");
 const {verifyToken, checkIfWorker} = require("../classes/login.js");
@@ -65,4 +65,9 @@ router.get("/roparameters",verifyToken,checkIfWorker, async function(request,res
     if(!request.body || ! await editParameters(request.body)) response.sendStatus(400);
     else response.sendStatus(200);
   });
+
+  router.post("/orders/deleteorder",jsonParser,async function(request,response){
+    if(!request.body || ! await deleteOrder(request.body.ID)) response.sendStatus(400);
+    else response.sendStatus(200);
+  })
 module.exports = router;

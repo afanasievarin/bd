@@ -8,6 +8,14 @@
             <p class="imdiz-product__name">ФИО арендатора: {{contract.usersurname}} {{contract.username}}</p>
             <p class="imdiz-product__name">Логин арендатора: {{contract.userlogin}}</p>
             <p class="imdiz-product__name">ФИО работника: {{contract.workersurname}} {{contract.workername}}</p>		
+            {{#isEquals token.role "0"}}
+            {{#isLesser contract.contractstatusID "2"}}
+            <form class="imdiz-product__buy-form">
+                <input type="hidden">
+                <button type="submit" id="delete-btn" class="imdiz-product__submit" value="{{contract.contractID}}">Отменить заказ</button>
+            </form>
+            {{/isLesser}}
+            {{/isEquals}}
         </div>
     </div>
 </li>

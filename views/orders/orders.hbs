@@ -18,3 +18,20 @@
         </div>
     </body>
 </html>
+<script>
+const btns = document.querySelectorAll('#delete-btn');
+    btns.forEach(async function(btn) { 
+    btn.onclick = async function(){
+        var id = btn.value;
+        var data ={ID: id};
+        const response = await fetch('/orders/deleteorder', {
+            method: 'post',
+            body: JSON.stringify(data),
+            headers: {'Content-Type': 'application/json'}
+        });
+        if(response.status == 400){alert("Ошибка при отмене заказа");return;}
+        var tr = elem.closest("a");
+        tr.remove();
+        }
+    });
+</script>

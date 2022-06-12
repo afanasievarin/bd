@@ -71,7 +71,7 @@ async function getContractItemsByContractID(contractID){
   async function submitContract(data){
     var result;
     var temp = new Date();
-    var date = temp.getFullYear()+"-"+temp.getMonth()+"-"+temp.getDate();
+    var date = temp.getFullYear()+"-"+(temp.getMonth()+1)+"-"+temp.getDate();
     await pool.execute(`
         UPDATE contracts
         SET
@@ -224,4 +224,19 @@ async function getContractItemsByContractID(contractID){
         });
         return result;
     }
-module.exports = {getRentableItems, getItemByID,getContractItemsByContractID, submitContract,deleteContractItem, getContractsByUserToken,getContractByID,getContractStatusesWithout,updateContract};
+
+    async function deleteContract(id){
+        var result = true;
+        await pool.execute(`
+            DELETE 
+            FROM contracts
+            WHERE contractID = "${id}"
+            LIMIT 1
+        `)
+        .catch((err)=>{
+            console.log(err);
+            result = false;
+        })
+        return result;
+      }
+module.exports = {getRentableItems,deleteContract, getItemByID,getContractItemsByContractID, submitContract,deleteContractItem, getContractsByUserToken,getContractByID,getContractStatusesWithout,updateContract};

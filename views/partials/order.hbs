@@ -8,6 +8,14 @@
             <p class="imdiz-product__name">ФИО покупателя: {{order.usersurname}} {{order.username}}</p>
             <p class="imdiz-product__name">Логин покупателя: {{order.userlogin}}</p>
             <p class="imdiz-product__name">ФИО работника: {{order.workersurname}} {{order.workername}}</p>		
+            {{#isEquals token.role "0"}}
+             {{#isLesser order.orderstatusID "2"}}
+            <form class="imdiz-product__buy-form">
+                <input type="hidden">
+                <button type="submit" id="delete-btn" class="imdiz-product__submit" value="{{order.orderID}}">Отменить заказ</button>
+            </form>
+            {{/isLesser}}
+            {{/isEquals}}
         </div>
     </div>
 </li>

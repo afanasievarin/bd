@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const {getRentableItems, getItemByID,getContractItemsByContractID,submitContract,deleteContractItem, getContractsByUserToken,getContractByID,getContractStatusesWithout,updateContract} = require("../classes/rent.js");
+const {getRentableItems,deleteContract, getItemByID,getContractItemsByContractID,submitContract,deleteContractItem, getContractsByUserToken,getContractByID,getContractStatusesWithout,updateContract} = require("../classes/rent.js");
 const {findEmptyContract} = require("../classes/catalog.js");
 const {getWorkersWithout} = require("../classes/worker.js")
 const {verifyToken, checkIfAdmin, checkIfWorker} = require("../classes/login.js");
@@ -60,5 +60,8 @@ router.post("/contract/update", jsonParser, async function(request,response){
   if(!request.body || !await updateContract(request.body)) response.sendStatus(400);
   else response.sendStatus(200);
 });
-
+router.post("/contracts/deletecontract",jsonParser,async function(request,response){
+  if(!request.body || ! await deleteContract(request.body.ID)) response.sendStatus(400);
+  else response.sendStatus(200);
+})
 module.exports = router;
