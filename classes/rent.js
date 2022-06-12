@@ -207,11 +207,14 @@ async function getContractItemsByContractID(contractID){
     
     async function updateContract(data){
         var result;
+        var date = "";
+        if(data.deadline) date = ",contractdeadline = '"+data.deadline+"'";
         await pool.execute(`
             UPDATE contracts
             SET 
             contractstatusID = "${data.contractstatusID}",
             workerID = "${data.workerID}"
+            ${date}
             WHERE contractID = "${data.ID}"
             LIMIT 1
         `)

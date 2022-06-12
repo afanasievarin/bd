@@ -10,8 +10,9 @@
         <header class="headernotmain">
             {{> navigationbar token=token}}
         </header>
+        <input type="text" id="filter-input" onkeyup="applyFilter()" placeholder="Поиск...">
         <div class="container products__container">
-            <ul class="imdiz-products_row">
+            <ul id="table" class="imdiz-products_row">
                 {{#isGreater token.role "0"}}{{> emptyitem}}{{/isGreater}}
                 {{#each items}}
                     {{> rentableitem item=this token=../token}} 
@@ -34,4 +35,30 @@
         });
     }
     });
+    function applyFilter() {
+    // Declare variables
+    var input, filter, ul, li, i, txtValue;
+    input = document.getElementById("filter-input");
+    filter = input.value.toUpperCase();
+    ul = document.getElementById("table");
+    li = ul.getElementsByTagName("li");
+
+    // Loop through all table rows, and hide those who don't match the search query
+    for (i = 0; i < li.length; i++) {
+        var endLoop = false;
+        var spans = li[i].getElementsByTagName("span");
+        for(let span of spans)
+        if(!endLoop)
+            if (span) {
+                txtValue = span.textContent || span.innerText;
+                if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                    li[i].style.display = "";
+                    endLoop = true;
+                } 
+                else {
+                    li[i].style.display = "none";
+                }
+        }
+        }
+    }
 </script>

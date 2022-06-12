@@ -1,4 +1,4 @@
-<li class="imdiz-product">
+<li name="li" class="imdiz-product">
     <div class="imdiz-product__inner">                
         <!--!<div class="imdiz-product__image-wrap">-->
             <a href="/itempage/{{item.itemID}}" class="imdiz-product__img-link">
@@ -6,11 +6,14 @@
             </a>                    
         <!--</div>-->
         <div class="imdiz-product__info">
-            <a href="/itempage/{{item.itemID}}" class="imdiz-product__name">{{item.itemname}}</a>	
+            <a href="/itempage/{{item.itemID}}" class="imdiz-product__name"><span>{{item.itemname}}</span></a>		
             <p class="imdiz-product__av">
 						<i class="fa fa-check" aria-hidden="true"></i>
 						<span>Статус: {{item.itemstatusname}}</span>
 					</p>       
+            <p class="imdiz-product__price">
+            <span>Категория: {{item.categoryname}}</span>
+            </p>
             <p class="imdiz-product__price">
                 <span class="imdiz-product__cost">Цена: {{item.itemprice}}</span>
             </p>

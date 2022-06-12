@@ -47,10 +47,10 @@ async function createTables(){
         orderdate date null,
         workerID tinyint null,
         userID int not null,
-        orderstatusID tinyint null default 1,
+        orderstatusID tinyint null,
         foreign key(workerID) references workers(workerID) on delete set null,
         foreign key(userID) references users(userID) on delete cascade,
-        foreign key(orderstatusID) references orderstatuses(orderstatusID) on delete set default,
+        foreign key(orderstatusID) references orderstatuses(orderstatusID) on delete cascade,
         primary key(orderID)        
         )`;
       //4 статус договора
@@ -65,9 +65,10 @@ async function createTables(){
         contractdate date null,
         userID int,
         workerID tinyint,
-        contractstatusID tinyint default 1,
+        contractdeadline date null,
+        contractstatusID tinyint null,
         foreign key(userID) references users(userID) on delete cascade,
-        foreign key(contractstatusID) references contractstatuses(contractstatusID) on delete set default,
+        foreign key(contractstatusID) references contractstatuses(contractstatusID) on delete cascade,
         foreign key(workerID) references workers(workerID) on delete set null,
         primary key(contractID)
       )`;

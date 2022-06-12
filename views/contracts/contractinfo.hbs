@@ -48,8 +48,13 @@
 				</tr>
 				<tr>
 					<td>Дата заказа:</td>
-					<td><input readonly  type="date" name="input" value="{{order.orderdate}}"></td>
+					<td><input readonly  type="date" name="input" value="{{contract.contractdate}}"></td>
 				</tr>
+				<tr>
+					<td>Аренда до:</td>
+					<td><input  type="date" name="input" id="deadline" value="{{contract.contractdeadline}}"></td>
+				</tr>
+				
 			</table>
 			{{#isGreater token.role "0"}}<button class="upbtn1" id="update-btn" value="{{contract.contractID}}">Сохранить</button>{{/isGreater}}
 		</div>   
@@ -68,7 +73,8 @@
 		var data = {
 			ID: btn.value,
 			workerID: document.getElementById("worker").value,
-			contractstatusID: document.getElementById("status").value
+			contractstatusID: document.getElementById("status").value,
+			deadline: document.getElementById("deadline").value
 		}
 		const response = await fetch('/contract/update', {
             method: 'post',
